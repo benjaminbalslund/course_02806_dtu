@@ -1,7 +1,6 @@
-pandas>=2.0.0
-numpy>=1.26.0
-matplotlib>=3.8.0
-seaborn
+pandas 
 requests
-calplot
-warnings
+matplotlib
+seaborn 
+numpy 
+scipy
