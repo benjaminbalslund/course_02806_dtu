@@ -2,41 +2,62 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>San Francisco Crime Analysis</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>San Francisco Crime Analysis | Data Story</title>
     <style>
-        body { font-family: 'Helvetica Neue', Arial, sans-serif; line-height: 1.6; max-width: 1000px; margin: auto; padding: 40px; background-color: #f4f4f9; color: #333; }
-        .section { background: white; padding: 30px; margin-bottom: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-        h1 { color: #2c3e50; text-align: center; font-size: 2.5em; }
-        h2 { color: #34495e; border-bottom: 2px solid #3498db; padding-bottom: 10px; }
-        img { max-width: 100%; height: auto; display: block; margin: 20px auto; border-radius: 8px; }
-        p { font-size: 1.1em; color: #555; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; max-width: 1100px; margin: auto; padding: 40px; background-color: #f0f2f5; color: #1a1a1b; }
+        .section { background: white; padding: 40px; margin-bottom: 40px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); }
+        h1 { color: #1e3a8a; text-align: center; font-size: 3em; margin-bottom: 10px; }
+        h2 { color: #2563eb; border-bottom: 3px solid #dbeafe; padding-bottom: 10px; margin-top: 0; }
+        .subtitle { text-align: center; font-size: 1.2em; color: #64748b; margin-bottom: 50px; }
+        img { max-width: 100%; height: auto; display: block; margin: 30px auto; border-radius: 10px; transition: transform 0.3s ease; }
+        img:hover { transform: scale(1.02); }
+        p { font-size: 1.15em; color: #334155; }
+        .grid-info { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        @media (max-width: 768px) { .grid-info { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
 
-    <h1>Crime in San Francisco: A Data Story</h1>
-    <p style="text-align: center;">An analysis of patterns, geographical distribution, and temporal trends based on SF Open Data.</p>
+    <h1>San Francisco Crime Analysis</h1>
+    <p class="subtitle">A Comprehensive Data Story based on SF Open Data (Current & Historical)</p>
 
     <div class="section">
-        <h2>1. When does crime occur?</h2>
-        <p>Through our analysis of the 24-hour cycle, we observe clear peaks around lunchtime and early evening.</p>
-        <img src="week1.png" alt="Incidents per hour">
-        <p>By diving deeper into the top categories, we see how, for example, drug-related crimes have a different temporal profile compared to theft.</p>
-        <img src="week6.png" alt="Small Multiples temporal patterns">
+        <h2>1. Temporal Trends: When does crime happen?</h2>
+        <p>Our analysis of 100,000 recent incidents shows a clear daily cycle. Crime rates are lowest in the early morning hours and peak steadily during the afternoon, specifically around 12:00 PM and 5:00 PM.</p>
+        <img src="week1.png" alt="Hourly crime distribution">
+        
+        <p>Using <strong>Small Multiples</strong> (Week 6), we can see that the temporal profile varies significantly by category. For instance, some crimes are strictly "daytime" issues, while others are more prevalent at night.</p>
+        <img src="week6.png" alt="Small Multiples of crime categories">
     </div>
 
     <div class="section">
-        <h2>2. Where is it most concentrated?</h2>
-        <p>Crime is not evenly distributed. Our heatmap reveals clear "hotspots" throughout the city.</p>
-        <img src="week5(1).png" alt="Crime Hotspots">
-        <p>Below is the distribution across individual police districts.</p>
-        <img src="week5.png" alt="Police Districts Map">
+        <h2>2. Geography of Crime: Hotspots & Districts</h2>
+        <p>Mapping the coordinates (Latitude and Longitude) reveals that crime is highly localized. The <strong>Density Map</strong> (Heatmap) highlights intense hotspots in the city center.</p>
+        <img src="week5(1).png" alt="Crime Density Heatmap">
+        
+        <p>When visualized by Police Districts, we can see how the different stations manage various geographical sectors of San Francisco.</p>
+        <img src="week5.png" alt="Police District Scatter Plot">
     </div>
 
     <div class="section">
-        <h2>3. Power Laws and Correlations</h2>
-        <p>We investigated whether a few locations account for the majority of crime (Spatial Power Law), which the graph confirms.</p>
-        <img src="week4.png" alt="Spatial Power Law">
+        <h2>3. Mathematical Insights: Power Laws & Correlations</h2>
+        <div class="grid-info">
+            <div>
+                <p><strong>Spatial Power Law:</strong> Our log-log plot confirms that a very small number of locations account for a vast majority of the total crime incidents, following a classic Power Law distribution.</p>
+                <img src="week4.png" alt="Spatial Power Law Log-Log Plot">
+            </div>
+            <div>
+                <p><strong>Correlations:</strong> By comparing the weekly profiles of different crime types (like Larceny and Burglary), we found a strong correlation in their timing, suggesting they might be driven by similar urban rhythms.</p>
+                <img src="week4(1).png" alt="Linear Regression of Crime Categories">
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>4. Distribution and Variance</h2>
+        <p>Finally, looking at the top 5 categories through <strong>Boxplots</strong>, we see the variance in incident times, helping us identify which crimes are most predictable in their occurrence.</p>
+        <img src="week3.png" alt="Boxplot of top categories">
     </div>
 
 </body>
