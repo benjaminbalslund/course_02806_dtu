@@ -1,3 +1,6 @@
-echo ".venv/" >> .gitignore
-echo "node_modules/" >> .gitignore
-echo "__pycache__/" >> .gitignore
+cat > .gitignore << 'EOF'
+.venv/
+node_modules/
+__pycache__/
+*.pyc
+EOF
