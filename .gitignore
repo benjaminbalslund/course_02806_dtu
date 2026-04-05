@@ -3,4 +3,4 @@ cat > .gitignore << 'EOF'
 node_modules/
 __pycache__/
 *.pyc
-EOF
+EOF*.csv
