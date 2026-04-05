@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Crime Is Not Everywhere — It's Here</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink:    #1A1A1A;
+      --soft:   #4A4A4A;
+      --rule:   #DDDDDD;
+      --accent: #E63946;
+      --bg:     #FAFAF8;
+      --card:   #FFFFFF;
+      --max-w:  720px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'Source Serif 4', Georgia, serif;
+      font-size: 18px;
+      line-height: 1.78;
+    }
+
+    /* Header */
+    header {
+      border-top: 4px solid var(--ink);
+      border-bottom: 1px solid var(--rule);
+      padding: 3rem 1.5rem 2.5rem;
+      text-align: center;
+    }
+    .kicker {
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3.1rem);
+      line-height: 1.18;
+      max-width: 620px;
+      margin: 0 auto 1.2rem;
+    }
+    .deck {
+      font-size: 1.05rem;
+      color: var(--soft);
+      max-width: 540px;
+      margin: 0 auto 1.5rem;
+      font-style: italic;
+    }
+    .byline {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      color: #999;
+      letter-spacing: 0.05em;
+    }
+
+    /* Body */
+    .story {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 1.5rem 4rem;
+    }
+    p { margin: 1.4rem 0; }
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      margin: 3rem 0 0.5rem;
+      border-top: 1px solid var(--rule);
+      padding-top: 1.5rem;
+    }
+
+    /* Figures */
+    .fig-block {
+      margin: 2.5rem 0;
+      background: var(--card);
+      border: 1px solid var(--rule);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .fig-block img   { display: block; width: 100%; height: auto; }
+    .fig-block iframe { display: block; width: 100%; border: none; }
+    figcaption {
+      padding: 0.75rem 1rem 0.9rem;
+      font-size: 0.82rem;
+      color: var(--soft);
+      border-top: 1px solid var(--rule);
+      line-height: 1.55;
+    }
+    figcaption strong { color: var(--ink); }
+
+    /* Pull quote */
+    blockquote {
+      margin: 2.5rem 0;
+      padding: 1.1rem 1.5rem 1.1rem 1.8rem;
+      border-left: 4px solid var(--accent);
+      background: #FFF8F8;
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.18rem;
+      line-height: 1.55;
+      color: #2A1A1A;
+    }
+
+    /* Callout */
+    .callout {
+      background: #FFF9E6;
+      border-left: 3px solid #E6A817;
+      padding: 0.9rem 1.2rem;
+      margin: 2rem 0;
+      font-size: 0.88rem;
+      line-height: 1.6;
+    }
+
+    .stat-row {
+      display: flex;
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+    .stat-box {
+      flex: 1;
+      background: var(--card);
+      border: 1px solid var(--rule);
+      border-radius: 4px;
+      padding: 1rem;
+      text-align: center;
+    }
+    .stat-box .num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      color: var(--accent);
+      display: block;
+    }
+    .stat-box .label {
+      font-size: 0.78rem;
+      color: var(--soft);
+      line-height: 1.4;
+    }
+
+    .data-note {
+      margin-top: 3.5rem;
+      padding-top: 1.2rem;
+      border-top: 1px solid var(--rule);
+      font-size: 0.78rem;
+      color: #999;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 500px) {
+      body { font-size: 16px; }
+      .stat-row { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <span class="kicker">SF Crime Data · 02806 Social Data Analysis · Spring 2026</span>
+  <h1>Crime Is Not Everywhere — It's Here</h1>
+  <p class="deck">
+    Over two decades of San Francisco police data tells a consistent story:
+    crime doesn't spread evenly across the city. A handful of blocks
+    absorb a disproportionate share of every incident category.
+  </p>
+  <p class="byline">By [Dit navn] &nbsp;·&nbsp; April 2026</p>
+</header>
+
+<main class="story">
+
+  <p>
+    Between 2003 and 2024, San Francisco's Police Department recorded over two million
+    reported incidents — everything from petty larceny to assault, drug offenses to
+    motor vehicle theft. The dataset is public, granular, and geographic: every entry
+    carries the block-level coordinates where it was reported.
+  </p>
+
+  <p>
+    When you plot all those coordinates, a pattern emerges immediately. Crime in San
+    Francisco is not a background hum spread evenly across 49 square miles.
+    It has <strong>shape</strong>. It has <strong>geography</strong>. And understanding
+    that geography is the first step toward understanding the city's crime problem at all.
+  </p>
+
+  <h2>The City Has a Hot Core</h2>
+
+  <p>
+    The density map below visualizes where reported incidents cluster across the full
+    20-year period. Darker red means higher concentration. The result is striking:
+    a single bright core dominates the map, centered on the Tenderloin and Downtown,
+    with a secondary cluster around the Mission District.
+  </p>
+
+  <figure class="fig-block">
+    <img src="fig1_hotspot.png"
+         alt="KDE density map of all SF crime incidents 2003–2024. A dominant hotspot appears over the Tenderloin and Downtown area." />
+    <figcaption>
+      <strong>Figure 1.</strong> Kernel density estimate of all reported crime incidents
+      in San Francisco, 2003–2024. The Tenderloin and SoMa/Downtown corridor concentrates
+      the highest density of reports across almost every category.
+      Source: SFPD Incident Reports, SF OpenData.
+    </figcaption>
+  </figure>
+
+  <p>
+    The Tenderloin is San Francisco's most densely populated neighborhood per square mile,
+    with high rates of poverty, homelessness, and open-air drug markets. These conditions
+    both generate incidents and attract enforcement — which brings us to an important caveat
+    we will return to at the end.
+  </p>
+
+  <div class="stat-row">
+    <div class="stat-box">
+      <span class="num">~5%</span>
+      <span class="label">of city blocks account for roughly half of all reported incidents</span>
+    </div>
+    <div class="stat-box">
+      <span class="num">10×</span>
+      <span class="label">more incidents in the highest-density block vs. the city average</span>
+    </div>
+    <div class="stat-box">
+      <span class="num">2M+</span>
+      <span class="label">total incidents recorded since 2003</span>
+    </div>
+  </div>
+
+  <h2>It Looks Different When You Can Zoom In</h2>
+
+  <p>
+    A static density plot reveals the overall pattern, but it collapses everything
+    into a single layer. The interactive map below lets you switch between the full
+    picture and individual crime categories — use the layer control in the top right corner.
+  </p>
+
+  <figure class="fig-block">
+    <iframe src="fig2_map.html" height="480"
+            title="Interactive heatmap of SF crime by category"></iframe>
+    <figcaption>
+      <strong>Figure 2.</strong> Interactive heatmap. Toggle between all incidents,
+      Larceny/Theft, Assault, and Motor Vehicle Theft using the layer control (top right).
+      Each category has its own color gradient. Pan and zoom to explore.
+      Source: SFPD Incident Reports, SF OpenData.
+    </figcaption>
+  </figure>
+
+  <p>
+    Notice how switching categories shifts the geography. Larceny/Theft is concentrated
+    in commercial corridors — Union Square, SoMa, the Embarcadero — where targets are
+    plentiful and pedestrian traffic is high. Assault spreads more broadly, with clusters
+    in residential neighborhoods as well as the nightlife corridors of the Mission and
+    the Tenderloin. Motor vehicle theft shows yet another pattern: it tracks parking
+    density, with hotspots near the freeway on-ramps and residential blocks with street parking.
+  </p>
+
+  <blockquote>
+    Different crimes have different geographies — because different crimes
+    depend on different opportunities.
+  </blockquote>
+
+  <h2>Not Just Where — But Who Polices Where</h2>
+
+  <p>
+    San Francisco is divided into ten police districts. The heatmap below shows, for each
+    district, whether a given crime category is <em>over-represented</em> (red) or
+    <em>under-represented</em> (blue) relative to the city-wide average. A value of 1
+    means exactly average; 2 means twice as likely in that district as in the city overall.
+    Hover over any cell for exact values.
+  </p>
+
+  <figure class="fig-block">
+    <iframe src="fig3_districts.html" height="520"
+            title="Interactive heatmap: crime overrepresentation by district and category"></iframe>
+    <figcaption>
+      <strong>Figure 3.</strong> Conditional crime profile per police district.
+      Each cell shows the ratio P(crime | district) / P(crime): values above 1 mean
+      the crime type is overrepresented in that district. Hover for exact values.
+      Source: SFPD Incident Reports, SF OpenData.
+    </figcaption>
+  </figure>
+
+  <p>
+    The Tenderloin district stands out sharply for Drug Offenses — a ratio well above 1,
+    meaning drug-related incidents are dramatically overrepresented there relative to the
+    rest of the city. The Southern and Mission districts show elevated Assault ratios.
+    Richmond and Taraval — covering the western residential neighborhoods — look very
+    different: lower across most categories, with Motor Vehicle Theft as a notable exception.
+  </p>
+
+  <h2>What the Data Can and Cannot Tell Us</h2>
+
+  <p>
+    Concentration in the Tenderloin does not necessarily mean that more crime <em>occurs</em>
+    there than elsewhere. It means more crime is <em>reported and recorded</em> there.
+    Areas with heavier police presence generate more arrests and incident reports for
+    the same underlying rate of activity — a dynamic that has been documented extensively
+    in the literature on policing bias (see Richardson et al., 2019, on "dirty data").
+  </p>
+
+  <div class="callout">
+    ⚠️ <strong>Data caveat:</strong> These maps reflect <em>reported</em> incidents, not
+    actual crime. High-density areas may partly reflect intensive policing rather than
+    higher underlying crime rates. Under-reporting in wealthier neighborhoods could also
+    contribute to the pattern. Interpret spatial concentration as a signal worth
+    investigating further, not as ground truth.
+  </div>
+
+  <p>
+    With that caveat in mind, the geographic concentration visible in this data is robust
+    enough across two decades and across multiple crime categories to suggest that
+    something real is being captured. The spatial patterns are consistent and stable —
+    the Tenderloin hotspot appears in every year from 2003 to 2024. Understanding
+    <em>why</em> certain places concentrate crime — and what would need to change to
+    alter that geography — is a question that data alone cannot answer, but that data
+    like this can help sharpen.
+  </p>
+
+  <p class="data-note">
+    <strong>Data:</strong> SFPD Incident Reports 2003–present, via SF OpenData API
+    (modern endpoint: <code>wg3w-h783</code>; historical: <code>tmnf-yvry</code>).
+    Analysis: Python (pandas, seaborn, folium, plotly). Coordinates filtered to
+    SF peninsula (37.70–37.84°N, 122.35–122.52°W).
+    Course: 02806 Social Data Analysis and Visualization, DTU, Spring 2026.
+  </p>
+
+</main>
+</body>
+</html>
