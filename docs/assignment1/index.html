@@ -173,13 +173,13 @@
 
 <header>
   <span class="kicker">SF Crime Data · 02806 Social Data Analysis · Spring 2026</span>
-  <h1>Assignment 1: Reading SF Crime Data</h1>
+  <h1>Assignment 1</h1>
   <p class="deck">
     Five exercises exploring when, where, and how crime is distributed across
-    San Francisco — from 20-year temporal trends to spatial power laws.
+    San Francisco. From 20-year temporal trends to spatial power laws.
   </p>
   <p class="byline">
-    Mathilde (s254255) · Ida-Marie (s253849) · Benjamin (s253848)
+    Benjamin (s253848)
     &nbsp;·&nbsp; March 2, 2026
   </p>
 </header>
@@ -212,10 +212,10 @@
     <strong>Larceny/Theft dominance (2014–2018):</strong> Peaks around 2017, likely
     driven by high-volume property crime in tourist-heavy areas and Prop 47 (2014)
     reclassifying some thefts as misdemeanors, affecting reporting patterns.<br><br>
-    <strong>COVID-19 impact (2020):</strong> Most categories drop sharply — lockdowns
+    <strong>COVID-19 impact (2020):</strong> Most categories drop sharply, lockdowns
     removed street-level opportunities for Robbery and Assault. Motor Vehicle Theft
     is the notable exception, rising as empty streets left cars unobserved.<br><br>
-    <strong>The 2025 anomaly:</strong> A sudden spike across almost all categories —
+    <strong>The 2025 anomaly:</strong> A sudden spike across almost all categories,
     possibly a batch of backlogged data integrated into the API, or a genuine
     post-pandemic shift. The data alone cannot distinguish these explanations.
   </div>
@@ -241,13 +241,13 @@
   </figure>
 
   <blockquote>
-    The Tenderloin doesn't just have more drug offenses — it has a ratio that
+    The Tenderloin doesn't just have more drug offenses, it has a ratio that
     dwarfs every other district. That's not only a crime pattern. It's a policing pattern.
   </blockquote>
 
   <div class="reflection">
     <strong>District focus: Tenderloin.</strong> A massive over-representation of
-    Drug Offense incidents — ratio well above 1 — reflects both genuine concentration
+    Drug Offense incidents, ratio well above 1, reflects both genuine concentration
     (open-air drug markets, high density of social services) and enforcement
     concentration: heavier patrol presence generates more recorded incidents for
     the same underlying activity level than in residential districts like
@@ -259,7 +259,7 @@
   <h2>How Is Crime Distributed Across the Day?</h2>
 
   <p>
-    Violin plots show the full time-of-day distribution — not just the median, but
+    Violin plots show the full time-of-day distribution, not just the median, but
     the shape, spread, and density of when incidents cluster or thin out.
   </p>
 
@@ -279,7 +279,7 @@
     <strong>Assault and Robbery</strong> extend into late-night hours, driven by
     nightlife activity on weekends.<br><br>
     <strong>Midnight wrap-around:</strong> Crimes peaking near midnight show a split
-    at 0/23 — numerically opposite but temporally adjacent. A circular axis would
+    at 0/23, numerically opposite but temporally adjacent. A circular axis would
     represent this more accurately.
   </div>
 
@@ -289,7 +289,7 @@
 
   <p>
     We rank all locations by incident count and plot them on log-log axes.
-    A straight line here is the signature of a power-law distribution —
+    A straight line here is the signature of a power-law distribution,
     extreme concentration in a tiny fraction of locations.
   </p>
 
@@ -305,11 +305,11 @@
 
   <div class="reflection">
     <strong>Power law confirmed:</strong> The near-straight line on log-log axes
-    shows that a tiny fraction of locations — roughly the top 5% — accounts for
+    shows that a tiny fraction of locations — roughly the top 5%, accounts for
     the majority of all recorded incidents.<br><br>
     <strong>Implication:</strong> The "average block" is a misleading statistic.
     Neighbourhood-level aggregation obscures extreme local concentration, making
-    some areas appear safer — or more dangerous — than the block-level reality.
+    some areas appear safer, or more dangerous, than the block-level reality.
   </div>
 
   <!-- 1.5 ─────────────────────────────────────────────────────────────────── -->
@@ -336,9 +336,9 @@
     <strong>Most correlated — Assault & Robbery:</strong> Both peak on weekend
     evenings, driven by the same nightlife dynamics. High R² reflects their
     shared social context.<br><br>
-    <strong>Least correlated — Burglary & Robbery:</strong> Burglary tends toward
+    <strong>Least correlated is Burglary & Robbery:</strong> Burglary tends toward
     daytime weekday patterns (targeting unoccupied homes and offices), while
-    Robbery peaks at night and on weekends — almost opposite opportunity structures.
+    Robbery peaks at night and on weekends, almost opposite opportunity structures.
   </div>
 
   <div class="callout">
