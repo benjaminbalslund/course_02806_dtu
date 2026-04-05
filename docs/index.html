@@ -1,29 +1,137 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>San Francisco Crime Analysis | Data Story</title>
-    <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; max-width: 1100px; margin: auto; padding: 40px; background-color: #f0f2f5; color: #1a1a1b; }
-        .section { background: white; padding: 40px; margin-bottom: 40px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); }
-        h1 { color: #1e3a8a; text-align: center; font-size: 3em; margin-bottom: 10px; }
-        h2 { color: #2563eb; border-bottom: 3px solid #dbeafe; padding-bottom: 10px; margin-top: 0; }
-        .subtitle { text-align: center; font-size: 1.2em; color: #64748b; margin-bottom: 50px; }
-        img { max-width: 100%; height: auto; display: block; margin: 30px auto; border-radius: 10px; transition: transform 0.3s ease; }
-        img:hover { transform: scale(1.02); }
-        p { font-size: 1.15em; color: #334155; }
-        .grid-info { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        @media (max-width: 768px) { .grid-info { grid-template-columns: 1fr; } }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>San Francisco Crime Analysis</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink:    #1A1A1A;
+      --soft:   #4A4A4A;
+      --rule:   #DDDDDD;
+      --accent: #E63946;
+      --bg:     #FAFAF8;
+      --max-w:  720px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'Source Serif 4', Georgia, serif;
+      font-size: 18px;
+      line-height: 1.78;
+    }
+
+    header {
+      border-top: 4px solid var(--ink);
+      border-bottom: 1px solid var(--rule);
+      padding: 3rem 1.5rem 2.5rem;
+      text-align: center;
+    }
+    .kicker {
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3.1rem);
+      line-height: 1.18;
+      max-width: 620px;
+      margin: 0 auto 1rem;
+    }
+    .deck {
+      font-size: 1.05rem;
+      color: var(--soft);
+      max-width: 540px;
+      margin: 0 auto;
+      font-style: italic;
+    }
+
+    .story {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 2rem 1.5rem 4rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .cta-block {
+      background: var(--ink);
+      color: #fff;
+      border-radius: 4px;
+      padding: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .cta-block h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      margin: 0 0 0.4rem;
+      color: #fff;
+    }
+    .cta-block p { color: #AAA; margin: 0; font-size: 0.9rem; }
+
+    .cta-btn {
+      display: inline-block;
+      background: var(--accent);
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 4px;
+      text-decoration: none;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+    }
+    .cta-btn.disabled {
+      background: #444;
+      color: #888;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    @media (max-width: 600px) {
+      .cta-block { flex-direction: column; }
+    }
+  </style>
 </head>
-
-<div class="section">
-    <h2>5. Assignment 2: Crime Is Not Everywhere — It's Here</h2>
-    <p>A short data story examining the geographic concentration of crime in San Francisco.</p>
-    <a href="assignment2/" style="display:inline-block; background:#1e3a8a; color:white; padding:12px 24px; border-radius:8px; text-decoration:none; font-size:1.1em;">Read the data story →</a>
-</div>
-
 <body>
 
+<header>
+  <span class="kicker">02806 Social Data Analysis · DTU · Spring 2026</span>
+  <h1>San Francisco Crime Analysis</h1>
+  <p class="deck">A data story based on SF Open Data — current and historical incident reports</p>
+</header>
+
+<main class="story">
+
+  <div class="cta-block">
+    <div>
+      <h2>Assignment 1</h2>
+      <p>Temporal trends, crime profiles by district, distributions, and spatial power laws.</p>
+    </div>
+    <span class="cta-btn disabled">Not available</span>
+  </div>
+
+  <div class="cta-block">
+    <div>
+      <h2>Assignment 2: Crime Is Not Everywhere — It's Here</h2>
+      <p>A focused data story on the geographic concentration of crime in San Francisco.</p>
+    </div>
+    <a class="cta-btn" href="assignment2/">Read the story →</a>
+  </div>
+
+</main>
+</body>
 </html>
