@@ -96,22 +96,38 @@ for crime in FOCUS:
     sub = yearly[yearly["category"] == crime]
     fig1.add_trace(go.Scatter(
         x=sub["year"], y=sub["n"], mode="lines+markers",
-        name=LABELS[crime],
+        name=crime.title(),
         line=dict(color=cmap[crime], width=2),
         marker=dict(size=5),
         hovertemplate=f"<b>{crime.title()}</b><br>%{{x}}: <b>%{{y:,}}</b><extra></extra>"
     ))
+
+# Annotate each line at its last data point (right side)
+for crime in FOCUS:
+    sub = yearly[yearly["category"] == crime].dropna()
+    if len(sub) == 0: continue
+    last = sub.iloc[-1]
+    label = crime.title().replace("Motor Vehicle Theft","MV Theft").replace("Larceny Theft","Larceny").replace("Drug Offense","Drug Off.")
+    fig1.add_annotation(
+        x=last["year"], y=last["n"],
+        text=f"  {label}",
+        showarrow=False,
+        xanchor="left", yanchor="middle",
+        font=dict(size=10, color=cmap[crime]),
+        bgcolor="rgba(250,250,248,0.0)"
+    )
+
 fig1.add_vrect(x0=2019.8, x1=2021.2, fillcolor="rgba(180,180,180,0.15)",
                line_width=0, annotation_text="COVID-19",
                annotation_position="top left",
                annotation=dict(font_size=10, font_color="#888"))
 fig1.update_layout(**base_layout(
     title=dict(text="Crime Trends in San Francisco, 2003–2025", font=dict(size=15)),
-    xaxis=dict(title="Year", dtick=2, showgrid=True, gridcolor=RULE),
+    xaxis=dict(title="Year", dtick=2, showgrid=True, gridcolor=RULE, range=[2002, 2029]),
     yaxis=dict(title="Number of incidents", showgrid=True, gridcolor=RULE),
-    legend=dict(orientation="v", x=0.01, y=0.99, xanchor="left", yanchor="top", bgcolor="rgba(250,250,248,0.88)", bordercolor="#DDDDDD", borderwidth=1),
+    showlegend=False,
     hovermode="x unified", height=460,
-    margin=dict(t=70, b=60, l=70, r=40)
+    margin=dict(t=70, b=60, l=70, r=110)
 ))
 save(fig1, "fig1_temporal.html")
 
@@ -134,7 +150,7 @@ fig2 = go.Figure(go.Heatmap(
     text=np.round(pivot.values, 2), texttemplate="%{text}",
     textfont={"size": 10},
     hovertemplate="<b>%{y}</b> · <b>%{x}</b><br>Ratio: <b>%{z:.2f}</b><extra></extra>",
-    colorbar=dict(title="Ratio", tickvals=[0,1,2,3], ticktext=["0","1 (avg)","2","3"])
+    colorbar=dict(title=dict(text="Ratio", side="right"), thickness=15, len=0.9)
 ))
 fig2.update_layout(**base_layout(
     title=dict(text="Crime Over-representation per Police District",
@@ -185,13 +201,22 @@ fig4.add_trace(go.Scatter(
     x=ranks, y=loc_n, mode="markers",
     marker=dict(size=3, color=BLUE, opacity=0.45),
     name="Observed",
-    hovertemplate="Rank %{x}: <b>%{y}</b> hændelser<extra></extra>"
+    showlegend=False,
+    hovertemplate="Rank %{x}: <b>%{y}</b> incidents<extra></extra>"
 ))
 fig4.add_trace(go.Scatter(
     x=ranks, y=fit_y, mode="lines",
     line=dict(color=RED, width=2),
-    name=f"Fit (α={-coef[0]:.2f})"
+    name=f"Fit (α={-coef[0]:.2f})",
+    showlegend=False
 ))
+# Annotate directly on the plot
+fig4.add_annotation(x=np.log10(ranks[5]), y=np.log10(loc_n[5]+1),
+    text="Observed", showarrow=False, xanchor="left",
+    font=dict(size=11, color=BLUE), bgcolor="rgba(250,250,248,0.8)")
+fig4.add_annotation(x=np.log10(ranks[100]), y=np.log10(fit_y[100]),
+    text=f"Power-law fit (α={-coef[0]:.2f})", showarrow=False, xanchor="left",
+    yshift=14, font=dict(size=11, color=RED), bgcolor="rgba(250,250,248,0.8)")
 fig4.update_layout(**base_layout(
     title=dict(text="Spatial Power Law: Crime Concentration in SF",
                font=dict(size=15)),
@@ -199,9 +224,7 @@ fig4.update_layout(**base_layout(
                showgrid=True, gridcolor=RULE),
     yaxis=dict(title="Number of incidents", type="log",
                showgrid=True, gridcolor=RULE),
-    legend=dict(x=0.98, y=0.98, xanchor="right", yanchor="top",
-                bgcolor="rgba(250,250,248,0.9)", bordercolor="#DDDDDD", borderwidth=1,
-                font=dict(size=11)),
+    showlegend=False,
     height=430, margin=dict(t=70, b=60, l=70, r=40)
 ))
 save(fig4, "fig4_powerlaw.html")
