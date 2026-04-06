@@ -125,8 +125,7 @@ fig1.update_layout(**base_layout(
     title=dict(text="Crime Trends in San Francisco, 2003–2025", font=dict(size=15)),
     xaxis=dict(title="Year", dtick=2, showgrid=True, gridcolor=RULE, range=[2002, 2029]),
     yaxis=dict(title="Number of incidents", showgrid=True, gridcolor=RULE),
-    showlegend=False,
-    hovermode="x unified", height=460,
+    showlegend=False, hovermode="x unified", height=460,
     margin=dict(t=70, b=60, l=70, r=110)
 ))
 save(fig1, "fig1_temporal.html")
@@ -150,7 +149,9 @@ fig2 = go.Figure(go.Heatmap(
     text=np.round(pivot.values, 2), texttemplate="%{text}",
     textfont={"size": 10},
     hovertemplate="<b>%{y}</b> · <b>%{x}</b><br>Ratio: <b>%{z:.2f}</b><extra></extra>",
-    colorbar=dict(title=dict(text="Ratio", side="right"), thickness=15, len=0.9)
+    colorbar=dict(title="", tickvals=[0,1,2,3], ticktext=["0","1","2","3"],
+                  thickness=15, len=0.85,
+                  y=0.5, yanchor="middle")
 ))
 fig2.update_layout(**base_layout(
     title=dict(text="Crime Over-representation per Police District",
@@ -211,10 +212,10 @@ fig4.add_trace(go.Scatter(
     showlegend=False
 ))
 # Annotate directly on the plot
-fig4.add_annotation(x=np.log10(ranks[5]), y=np.log10(loc_n[5]+1),
+fig4.add_annotation(x=ranks[5], y=loc_n[5],
     text="Observed", showarrow=False, xanchor="left",
     font=dict(size=11, color=BLUE), bgcolor="rgba(250,250,248,0.8)")
-fig4.add_annotation(x=np.log10(ranks[100]), y=np.log10(fit_y[100]),
+fig4.add_annotation(x=ranks[100], y=fit_y[100],
     text=f"Power-law fit (α={-coef[0]:.2f})", showarrow=False, xanchor="left",
     yshift=14, font=dict(size=11, color=RED), bgcolor="rgba(250,250,248,0.8)")
 fig4.update_layout(**base_layout(
