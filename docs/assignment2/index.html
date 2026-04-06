@@ -195,7 +195,7 @@
   <p class="deck">
     Over two decades of San Francisco police data tells a consistent story:
     crime doesn't spread evenly across the city. A handful of blocks
-    absorb a disproportionate share of every incident category.
+    absorb a disproportionate share of many incident categories.
   </p>
   <p class="byline">By: Benjamin Balslund (s253848) &nbsp;·&nbsp; April 2026</p>
 </header>
@@ -216,7 +216,7 @@
   <p>
     When you plot all those coordinates, a pattern emerges immediately. Crime in San
     Francisco is not a background hum spread evenly across 49 square miles.
-    It has <strong>shape</strong>. It has <strong>geography</strong>. And understanding
+    It has a shape. It has shows a geography pattern. And understanding
     that geography is the first step toward understanding the city's crime problem at all.
     This page follows the magazine genre described by Segel and Heer (2010): a single
     linear narrative in which the author controls the sequence, while the reader retains
@@ -239,15 +239,15 @@
     <img src="fig1_hotspot.png"
          alt="KDE density map of all SF crime incidents 2003–2024. A dominant hotspot appears over the Tenderloin and Downtown area." />
     <figcaption>
-      <strong>Figure 1.</strong> Kernel density estimate of all reported crime incidents
+      <strong>Figure 1.</strong> Kernel density estimate of reported crime incidents
       in San Francisco, 2003–2024. The Tenderloin and SoMa/Downtown corridor concentrates
-      the highest density of reports across almost every category.
+      the highest density of reports across categories.
       Source: SFPD Incident Reports, SF OpenData.
     </figcaption>
   </figure>
 
   <p>
-    The Tenderloin is San Francisco's most densely populated neighborhood per square mile,
+    Tenderloin is San Francisco's most densely populated neighborhood per square mile,
     with high rates of poverty, homelessness, and open-air drug markets. These conditions
     both generate incidents and attract enforcement. Which brings us to an important caveat
     we will return to at the end.
@@ -275,14 +275,14 @@
     into a single layer. The interactive map below lets you switch between the full
     picture and individual crime categories, use the layer control in the top right corner.
     It is built with Folium, a Python library for creating interactive Leaflet maps,
-    using a HeatMap layer for each crime category (Hickey, 2019).
+    using a HeatMap layer for diffrent crime categories (Hickey, 2019).
   </p>
 
   <figure class="fig-block">
     <iframe src="fig2_map.html" height="480"
             title="Interactive heatmap of SF crime by category"></iframe>
     <figcaption>
-      <strong>Figure 2.</strong> Interactive heatmap. Toggle between all incidents,
+      <strong>Figure 2.</strong> Interactive heatmap. Toggle between all incidents;
       Larceny/Theft, Assault, and Motor Vehicle Theft using the layer control (top right).
       Each category has its own color gradient. Pan and zoom to explore.
       Source: SFPD Incident Reports, SF OpenData.
@@ -307,8 +307,8 @@
 
   <p>
     San Francisco is divided into ten police districts. The heatmap below shows, for each
-    district, whether a given crime category is <em>over-represented</em> (red) or
-    <em>under-represented</em> (blue) relative to the city-wide average. A value of 1
+    district, whether a given crime category is over-represented (red) or
+    under-represented (blue) relative to the city-wide average. A value of 1
     means exactly average; 2 means twice as likely in that district as in the city overall.
     Hover over any cell for exact values.
   </p>
@@ -335,8 +335,8 @@
   <h2>What the Data Can and Cannot Tell Us</h2>
 
   <p>
-    Concentration in the Tenderloin does not necessarily mean that more crime <em>occurs</em>
-    there than elsewhere. It means more crime is <em>reported and recorded</em> there.
+    Concentration in the Tenderloin does not necessarily mean that more crime occurs
+    there than elsewhere. It means more crime is reported and recorded there.
     Areas with heavier police presence generate more arrests and incident reports for
     the same underlying rate of activity, a dynamic that has been documented extensively
     in the literature on policing bias (Richardson et al., 2019). Research on predictive
@@ -358,7 +358,7 @@
     enough across two decades and across multiple crime categories to suggest that
     something real is being captured. The spatial patterns are consistent and stable,
     the Tenderloin hotspot appears in every year from 2003 to 2024. Understanding
-    <em>why</em> certain places concentrate crime, and what would need to change to
+    why certain places concentrate crime, and what would need to change to
     alter that geography, is a question that data alone cannot answer, but that data
     like this can help sharpen.
   </p>
