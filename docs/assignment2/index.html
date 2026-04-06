@@ -154,6 +154,33 @@
       line-height: 1.6;
     }
 
+    /* References */
+    .references {
+      margin-top: 3rem;
+      padding-top: 1.2rem;
+      border-top: 1px solid var(--rule);
+      font-size: 0.82rem;
+      color: var(--soft);
+      line-height: 1.8;
+    }
+    .references h3 {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.8rem;
+    }
+    .references ol {
+      padding-left: 1.2rem;
+    }
+    .references li {
+      margin-bottom: 0.4rem;
+    }
+    .references a {
+      color: var(--soft);
+    }
+
     @media (max-width: 500px) {
       body { font-size: 16px; }
       .stat-row { flex-direction: column; }
@@ -161,7 +188,7 @@
   </style>
 </head>
 <body>
-  
+
 <header>
   <span class="kicker">SF Crime Data · 02806 Social Data Analysis · Spring 2026</span>
   <h1>Crime Is Not Everywhere. It's Here</h1>
@@ -172,13 +199,13 @@
   </p>
   <p class="byline">By: Benjamin Balslund (s253848) &nbsp;·&nbsp; April 2026</p>
 </header>
-  
+
 <main class="story">
 
 <a href="../" style="display:inline-flex; align-items:center; gap:0.4rem; font-family:'JetBrains Mono',monospace; font-size:0.75rem; color:var(--soft); text-decoration:none; letter-spacing:0.05em; margin:1.5rem 0 0; opacity:0.7;">
   ← Back
 </a>
-  
+
   <p>
     Between 2003 and 2024, San Francisco's Police Department recorded over two million
     reported incidents. Everything from petty larceny to assault, drug offenses to
@@ -191,6 +218,9 @@
     Francisco is not a background hum spread evenly across 49 square miles.
     It has <strong>shape</strong>. It has <strong>geography</strong>. And understanding
     that geography is the first step toward understanding the city's crime problem at all.
+    This page follows the magazine genre described by Segel and Heer (2010): a single
+    linear narrative in which the author controls the sequence, while the reader retains
+    limited freedom to explore through interactive elements.
   </p>
 
   <h2>The City Has a Hot Core</h2>
@@ -199,7 +229,10 @@
     The density map below visualizes where reported incidents cluster across the full
     20-year period. Darker red means higher concentration. The result is striking:
     a single bright core dominates the map, centered on the Tenderloin and Downtown,
-    with a secondary cluster around the Mission District.
+    with a secondary cluster around the Mission District. The map is produced using
+    a kernel density estimate (KDE), a smoothing technique described in DAOST Chapter 2
+    that places a smooth peaked function at each data point and sums the contributions
+    to produce a continuous surface, avoiding the binning artifacts of a traditional histogram.
   </p>
 
   <figure class="fig-block">
@@ -241,6 +274,8 @@
     A static density plot reveals the overall pattern, but it collapses everything
     into a single layer. The interactive map below lets you switch between the full
     picture and individual crime categories, use the layer control in the top right corner.
+    It is built with Folium, a Python library for creating interactive Leaflet maps,
+    using a HeatMap layer for each crime category (Hickey, 2019).
   </p>
 
   <figure class="fig-block">
@@ -304,7 +339,10 @@
     there than elsewhere. It means more crime is <em>reported and recorded</em> there.
     Areas with heavier police presence generate more arrests and incident reports for
     the same underlying rate of activity, a dynamic that has been documented extensively
-    in the literature on policing bias (see Richardson et al., 2019, on "dirty data").
+    in the literature on policing bias (Richardson et al., 2019). Research on predictive
+    policing has further shown that systems trained on historical incident data risk
+    amplifying exactly these enforcement patterns, directing even more patrols to already
+    heavily policed areas and making the bias self-reinforcing (Kahn, 2019).
   </p>
 
   <div class="callout">
@@ -332,6 +370,17 @@
     SF peninsula (37.70–37.84°N, 122.35–122.52°W).
     Course: 02806 Social Data Analysis and Visualization, DTU, Spring 2026.
   </p>
+
+  <div class="references">
+    <h3>References</h3>
+    <ol>
+      <li>Segel, E. &amp; Heer, J. (2010). Narrative Visualization: Telling Stories with Data. <em>IEEE Transactions on Visualization and Computer Graphics</em></li>
+      <li>Wilke, C. O. (DAOST). Chapter 2: A Single Variable - Shape and Distribution.</li>
+      <li>Richardson, R., Schultz, J. M., &amp; Crawford, K. (2019). Dirty Data, Bad Predictions: How Civil Rights Violations Impact Police Data, Predictive Policing Systems, and Justice. <em>NYU Law Review Online</em></li>
+      <li>Kahn, J. (2019). Can predictive policing prevent crime before it happens? <em>Science</em>. <a href="https://www.science.org/content/article/can-predictive-policing-prevent-crime-it-happens" target="_blank">science.org</a></li>
+      <li>Hickey, D. (2019). How to: Folium for Maps, Heatmaps &amp; Time Data. Kaggle. <a href="https://www.kaggle.com/code/daveianhickey/how-to-folium-for-maps-heatmaps-time-data" target="_blank">kaggle.com</a></li>
+    </ol>
+  </div>
 
 </main>
 </body>
