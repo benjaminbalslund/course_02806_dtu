@@ -85,12 +85,18 @@ cmap = {c: PALETTE[i % len(PALETTE)] for i, c in enumerate(FOCUS)}
 yearly = (df_f[df_f["year"].between(2003, 2025)]
           .groupby(["year", "category"]).size().reset_index(name="n"))
 
+# Shorten legend labels so they fit
+LABELS = {c: c.title().replace("Motor Vehicle Theft","MV Theft")
+               .replace("Larceny Theft","Larceny")
+               .replace("Drug Offense","Drug Off.")
+          for c in FOCUS}
+
 fig1 = go.Figure()
 for crime in FOCUS:
     sub = yearly[yearly["category"] == crime]
     fig1.add_trace(go.Scatter(
         x=sub["year"], y=sub["n"], mode="lines+markers",
-        name=crime.title(),
+        name=LABELS[crime],
         line=dict(color=cmap[crime], width=2),
         marker=dict(size=5),
         hovertemplate=f"<b>{crime.title()}</b><br>%{{x}}: <b>%{{y:,}}</b><extra></extra>"
@@ -103,9 +109,9 @@ fig1.update_layout(**base_layout(
     title=dict(text="Crime Trends in San Francisco, 2003–2025", font=dict(size=15)),
     xaxis=dict(title="Year", dtick=2, showgrid=True, gridcolor=RULE),
     yaxis=dict(title="Number of incidents", showgrid=True, gridcolor=RULE),
-    legend=dict(orientation="v", x=1.0, y=1, xanchor="left", bgcolor="rgba(250,250,248,0.9)", bordercolor="#DDDDDD", borderwidth=1),
+    legend=dict(orientation="v", x=0.01, y=0.99, xanchor="left", yanchor="top", bgcolor="rgba(250,250,248,0.88)", bordercolor="#DDDDDD", borderwidth=1),
     hovermode="x unified", height=460,
-    margin=dict(t=70, b=60, l=70, r=160)
+    margin=dict(t=70, b=60, l=70, r=40)
 ))
 save(fig1, "fig1_temporal.html")
 
@@ -128,7 +134,7 @@ fig2 = go.Figure(go.Heatmap(
     text=np.round(pivot.values, 2), texttemplate="%{text}",
     textfont={"size": 10},
     hovertemplate="<b>%{y}</b> · <b>%{x}</b><br>Ratio: <b>%{z:.2f}</b><extra></extra>",
-    colorbar=dict(title="Ratio<br>(1 = avg)")
+    colorbar=dict(title="Ratio", tickvals=[0,1,2,3], ticktext=["0","1 (avg)","2","3"])
 ))
 fig2.update_layout(**base_layout(
     title=dict(text="Crime Over-representation per Police District",
@@ -178,13 +184,13 @@ fig4 = go.Figure()
 fig4.add_trace(go.Scatter(
     x=ranks, y=loc_n, mode="markers",
     marker=dict(size=3, color=BLUE, opacity=0.45),
-    name="Observeret",
+    name="Observed",
     hovertemplate="Rank %{x}: <b>%{y}</b> hændelser<extra></extra>"
 ))
 fig4.add_trace(go.Scatter(
     x=ranks, y=fit_y, mode="lines",
     line=dict(color=RED, width=2),
-    name=f"Power-law fit (α = {-coef[0]:.2f})"
+    name=f"Fit (α={-coef[0]:.2f})"
 ))
 fig4.update_layout(**base_layout(
     title=dict(text="Spatial Power Law: Crime Concentration in SF",
@@ -194,7 +200,8 @@ fig4.update_layout(**base_layout(
     yaxis=dict(title="Number of incidents", type="log",
                showgrid=True, gridcolor=RULE),
     legend=dict(x=0.98, y=0.98, xanchor="right", yanchor="top",
-                bgcolor="rgba(250,250,248,0.9)", bordercolor="#DDDDDD", borderwidth=1),
+                bgcolor="rgba(250,250,248,0.9)", bordercolor="#DDDDDD", borderwidth=1,
+                font=dict(size=11)),
     height=430, margin=dict(t=70, b=60, l=70, r=40)
 ))
 save(fig4, "fig4_powerlaw.html")
