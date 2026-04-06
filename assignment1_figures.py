@@ -193,8 +193,9 @@ fig4.update_layout(**base_layout(
                showgrid=True, gridcolor=RULE),
     yaxis=dict(title="Number of incidents", type="log",
                showgrid=True, gridcolor=RULE),
-    legend=dict(x=0.02, y=0.04, xanchor="left", bgcolor="rgba(250,250,248,0.9)", bordercolor="#DDDDDD", borderwidth=1),
-    height=430
+    legend=dict(x=0.98, y=0.98, xanchor="right", yanchor="top",
+                bgcolor="rgba(250,250,248,0.9)", bordercolor="#DDDDDD", borderwidth=1),
+    height=430, margin=dict(t=70, b=60, l=70, r=40)
 ))
 save(fig4, "fig4_powerlaw.html")
 
@@ -231,12 +232,12 @@ for i, c1 in enumerate(crimes4):
             mode="lines", line=dict(color=RED, width=1.5),
             showlegend=False
         ), row=i+1, col=j+1)
-        # Place R² label using data coordinates (bottom-left of each panel)
+        # R² label: top-right corner of each panel using data coords
         fig5.add_annotation(
             text=f"R²={r2:.2f}",
             xref=f"x{i*n+j+1}", yref=f"y{i*n+j+1}",
-            x=x.min(), y=y.min(),
-            xanchor="left", yanchor="bottom",
+            x=x.max(), y=y.max(),
+            xanchor="right", yanchor="top",
             showarrow=False, font=dict(size=9, color="#333"),
             bgcolor="rgba(255,255,255,0.85)", borderpad=2
         )
