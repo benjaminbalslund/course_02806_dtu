@@ -25,15 +25,19 @@ PALETTE = [RED, BLUE, "#2A9D8F", "#E9C46A", "#F4A261",
            "#264653", "#6D6875", "#B5838D"]
 
 def base_layout(**kwargs):
-    return dict(
+    base = dict(
         plot_bgcolor=BG, paper_bgcolor=BG, font=FONT,
-        xaxis=dict(showgrid=True, gridcolor=RULE, zeroline=False),
-        yaxis=dict(showgrid=True, gridcolor=RULE, zeroline=False),
         margin=dict(t=70, b=60, l=70, r=40),
         hoverlabel=dict(bgcolor="white", font_size=12,
                         font_family="Georgia, serif"),
-        **kwargs
     )
+    # Only add default axes if caller hasn't specified them
+    if "xaxis" not in kwargs:
+        base["xaxis"] = dict(showgrid=True, gridcolor=RULE, zeroline=False)
+    if "yaxis" not in kwargs:
+        base["yaxis"] = dict(showgrid=True, gridcolor=RULE, zeroline=False)
+    base.update(kwargs)
+    return base
 
 def save(fig, name):
     fig.write_html(f"{OUT_DIR}/{name}", include_plotlyjs="cdn",
