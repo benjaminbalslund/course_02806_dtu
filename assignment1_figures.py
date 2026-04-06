@@ -101,11 +101,11 @@ fig1.add_vrect(x0=2019.8, x1=2021.2, fillcolor="rgba(180,180,180,0.15)",
                annotation=dict(font_size=10, font_color="#888"))
 fig1.update_layout(**base_layout(
     title=dict(text="Crime Trends in San Francisco, 2003–2025", font=dict(size=15)),
-    xaxis=dict(title="År", dtick=2, showgrid=True, gridcolor=RULE),
-    yaxis=dict(title="Antal hændelser", showgrid=True, gridcolor=RULE),
-    legend=dict(orientation="v", x=1.01, y=1, bgcolor="rgba(0,0,0,0)"),
+    xaxis=dict(title="Year", dtick=2, showgrid=True, gridcolor=RULE),
+    yaxis=dict(title="Number of incidents", showgrid=True, gridcolor=RULE),
+    legend=dict(orientation="v", x=1.0, y=1, xanchor="left", bgcolor="rgba(250,250,248,0.9)", bordercolor="#DDDDDD", borderwidth=1),
     hovermode="x unified", height=460,
-    margin=dict(t=70, b=60, l=70, r=200)
+    margin=dict(t=70, b=60, l=70, r=160)
 ))
 save(fig1, "fig1_temporal.html")
 
@@ -133,8 +133,8 @@ fig2 = go.Figure(go.Heatmap(
 fig2.update_layout(**base_layout(
     title=dict(text="Crime Over-representation per Police District",
                font=dict(size=15)),
-    xaxis=dict(title="Kategori", tickangle=-30),
-    yaxis=dict(title="Politidistrikt"),
+    xaxis=dict(title="Crime category", tickangle=-30),
+    yaxis=dict(title="Police district"),
     height=520, margin=dict(t=70, b=120, l=130, r=80)
 ))
 save(fig2, "fig2_districts.html")
@@ -154,7 +154,7 @@ for crime in FOCUS:
 fig3.update_layout(**base_layout(
     title=dict(text="Time-of-Day Distribution per Crime Category",
                font=dict(size=15)),
-    yaxis=dict(title="Time på døgnet", tickvals=list(range(0,24,3)),
+    yaxis=dict(title="Hour of day", tickvals=list(range(0,24,3)),
                ticktext=[f"{h:02d}:00" for h in range(0,24,3)],
                showgrid=True, gridcolor=RULE),
     xaxis=dict(tickangle=-30),
@@ -189,11 +189,11 @@ fig4.add_trace(go.Scatter(
 fig4.update_layout(**base_layout(
     title=dict(text="Spatial Power Law: Crime Concentration in SF",
                font=dict(size=15)),
-    xaxis=dict(title="Rangering af lokation", type="log",
+    xaxis=dict(title="Location rank", type="log",
                showgrid=True, gridcolor=RULE),
-    yaxis=dict(title="Antal hændelser", type="log",
+    yaxis=dict(title="Number of incidents", type="log",
                showgrid=True, gridcolor=RULE),
-    legend=dict(x=0.98, y=0.98, xanchor="right"),
+    legend=dict(x=0.02, y=0.04, xanchor="left", bgcolor="rgba(250,250,248,0.9)", bordercolor="#DDDDDD", borderwidth=1),
     height=430
 ))
 save(fig4, "fig4_powerlaw.html")
@@ -231,12 +231,14 @@ for i, c1 in enumerate(crimes4):
             mode="lines", line=dict(color=RED, width=1.5),
             showlegend=False
         ), row=i+1, col=j+1)
+        # Place R² label using data coordinates (bottom-left of each panel)
         fig5.add_annotation(
             text=f"R²={r2:.2f}",
             xref=f"x{i*n+j+1}", yref=f"y{i*n+j+1}",
-            x=0.95, y=0.95, xanchor="right", yanchor="top",
+            x=x.min(), y=y.min(),
+            xanchor="left", yanchor="bottom",
             showarrow=False, font=dict(size=9, color="#333"),
-            bgcolor="rgba(255,255,255,0.75)", borderpad=2
+            bgcolor="rgba(255,255,255,0.85)", borderpad=2
         )
         if i == n-1:
             fig5.update_xaxes(title_text=c2.title(),
