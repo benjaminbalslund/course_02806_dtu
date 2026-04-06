@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Assignment 1</title>
+  <title>Assignment 1 — SF Crime Analysis</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
   <style>
@@ -14,7 +14,6 @@
       --accent: #E63946;
       --bg:     #FAFAF8;
       --card:   #FFFFFF;
-      --code-bg:#1E1E1E;
       --max-w:  720px;
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -26,7 +25,7 @@
       font-size: 18px;
       line-height: 1.78;
     }
- 
+
     header {
       border-top: 4px solid var(--ink);
       border-bottom: 1px solid var(--rule);
@@ -62,13 +61,13 @@
       color: #999;
       letter-spacing: 0.05em;
     }
- 
+
     .story {
       max-width: var(--max-w);
       margin: 0 auto;
       padding: 0 1.5rem 4rem;
     }
- 
+
     .back-link {
       display: inline-flex;
       align-items: center;
@@ -82,9 +81,9 @@
       opacity: 0.7;
     }
     .back-link:hover { opacity: 1; }
- 
+
     p { margin: 1.4rem 0; color: var(--soft); }
- 
+
     h2 {
       font-family: 'Playfair Display', serif;
       font-size: 1.55rem;
@@ -102,88 +101,29 @@
       margin-top: 2.5rem;
       margin-bottom: -2rem;
     }
- 
-    /* ── Code cell ── */
-    .cell {
+
+    .fig-block {
       margin: 2rem 0;
+      background: var(--card);
       border: 1px solid var(--rule);
       border-radius: 4px;
       overflow: hidden;
     }
- 
-    .cell-header {
-      background: var(--code-bg);
-      padding: 0.5rem 1rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .cell-label {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.66rem;
-      color: #666;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-    }
-    .run-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      background: var(--accent);
-      color: #fff;
-      border: none;
-      border-radius: 3px;
-      padding: 0.3rem 1rem;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.72rem;
-      cursor: pointer;
-      letter-spacing: 0.05em;
-      transition: opacity 0.15s;
-    }
-    .run-btn:hover { opacity: 0.82; }
- 
-    .cell pre {
-      margin: 0;
-      background: var(--code-bg);
-      padding: 1rem 1.2rem;
-      overflow-x: auto;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.78rem;
-      line-height: 1.65;
-      color: #CDD6F4;
-      border-bottom: 1px solid #333;
-    }
- 
-    /* Syntax colours (manual, no library needed) */
-    .kw  { color: #CBA6F7; }
-    .fn  { color: #89B4FA; }
-    .st  { color: #A6E3A1; }
-    .cm  { color: #585B70; font-style: italic; }
-    .nu  { color: #FAB387; }
- 
-    /* ── Output ── */
-    .cell-output {
-      display: none;
-      border-top: 1px solid var(--rule);
-      background: var(--card);
-    }
-    .cell-output.visible { display: block; }
-    .cell-output iframe {
+    .fig-block iframe {
       display: block;
       width: 100%;
       border: none;
     }
- 
+
     figcaption {
       padding: 0.75rem 1rem 0.9rem;
       font-size: 0.82rem;
       color: var(--soft);
       border-top: 1px solid var(--rule);
       line-height: 1.55;
-      background: var(--card);
     }
     figcaption strong { color: var(--ink); }
- 
+
     blockquote {
       margin: 2rem 0;
       padding: 1.1rem 1.5rem 1.1rem 1.8rem;
@@ -195,7 +135,7 @@
       line-height: 1.55;
       color: #2A1A1A;
     }
- 
+
     .reflection {
       background: var(--card);
       border: 1px solid var(--rule);
@@ -208,7 +148,7 @@
       color: var(--soft);
     }
     .reflection strong { color: var(--ink); }
- 
+
     .callout {
       background: #FFF9E6;
       border-left: 3px solid #E6A817;
@@ -217,7 +157,7 @@
       font-size: 0.88rem;
       line-height: 1.6;
     }
- 
+
     .data-note {
       margin-top: 3.5rem;
       padding-top: 1.2rem;
@@ -226,238 +166,145 @@
       color: #999;
       line-height: 1.6;
     }
- 
+
     @media (max-width: 500px) { body { font-size: 16px; } }
   </style>
 </head>
 <body>
- 
+
 <header>
   <span class="kicker">SF Crime Data · 02806 Social Data Analysis · Spring 2026</span>
-  <h1>Assignment 1</h1>
+  <h1>Assignment 1: Reading SF Crime Data</h1>
   <p class="deck">
     Five exercises exploring when, where, and how crime is distributed across
-    San Francisco, from 20-year temporal trends to spatial power laws.
+    San Francisco — from 20-year temporal trends to spatial power laws.
   </p>
   <p class="byline">
-    Benjamin (s253848)
+    Mathilde (s254255) · Ida-Marie (s253849) · Benjamin (s253848)
     &nbsp;·&nbsp; March 2, 2026
   </p>
 </header>
- 
+
 <main class="story">
- 
+
   <a class="back-link" href="../">← Back</a>
- 
-  <!-- ══════════════════════════════════════════════════ 1.1 -->
+
+  <!-- 1.1 -->
   <span class="task-no">Assignment 1.1</span>
   <h2>When Did Crime Change?</h2>
   <p>Annual incident counts for eight focus crimes across the full 2003–2025 period.</p>
- 
-  <div class="cell">
-    <div class="cell-header">
-      <span class="cell-label">Python · assignment1_figures.py</span>
-      <button class="run-btn" onclick="runCell('out1')">▶ Run</button>
-    </div>
-    <pre><span class="cm"># Group by year and category</span>
-yearly = (df_f[df_f[<span class="st">"year"</span>].between(<span class="nu">2003</span>, <span class="nu">2025</span>)]
-          .groupby([<span class="st">"year"</span>, <span class="st">"category"</span>]).size().reset_index(name=<span class="st">"n"</span>))
- 
-fig = go.Figure()
-<span class="kw">for</span> crime <span class="kw">in</span> FOCUS:
-    sub = yearly[yearly[<span class="st">"category"</span>] == crime]
-    fig.add_trace(go.Scatter(
-        x=sub[<span class="st">"year"</span>], y=sub[<span class="st">"n"</span>],
-        mode=<span class="st">"lines+markers"</span>, name=crime.title(),
-        hovertemplate=<span class="st">f"&lt;b&gt;{crime.title()}&lt;/b&gt;&lt;br&gt;%{{x}}: %{{y:,}}&lt;extra&gt;&lt;/extra&gt;"</span>
-    ))
-fig.write_html(<span class="st">"docs/assignment1/fig1_temporal.html"</span>)</pre>
-    <div class="cell-output" id="out1">
-      <iframe src="fig1_temporal.html" height="480"></iframe>
-      <figcaption>
-        <strong>Figure 1.</strong> Annual incidents per focus crime, 2003–2025.
-        Hover for exact values; click legend to isolate categories.
-        Source: SFPD Incident Reports, SF OpenData.
-      </figcaption>
-    </div>
-  </div>
- 
+
+  <figure class="fig-block">
+    <iframe src="fig1_temporal.html" height="480"
+            title="Time series of SF crime 2003–2025"></iframe>
+    <figcaption>
+      <strong>Figure 1.</strong> Annual incidents per focus crime, 2003–2025.
+      Hover for exact values; click legend to isolate categories.
+      Source: SFPD Incident Reports, SF OpenData.
+    </figcaption>
+  </figure>
+
   <div class="reflection">
     <strong>Larceny/Theft dominance (2014–2018):</strong> Peaks around 2017, driven by high-volume property crime and Prop 47 (2014) reclassifying some thefts as misdemeanors.<br><br>
-    <strong>COVID-19 (2020):</strong> Most categories drop sharply. Motor Vehicle Theft is the exception, empty streets left cars unobserved for longer.<br><br>
+    <strong>COVID-19 (2020):</strong> Most categories drop sharply. Motor Vehicle Theft is the exception — empty streets left cars unobserved for longer.<br><br>
     <strong>2025 anomaly:</strong> A sudden spike across almost all categories. Possibly a batch of backlogged API data, or a genuine post-pandemic shift.
   </div>
- 
-  <!-- ══════════════════════════════════════════════════ 1.2 -->
+
+  <!-- 1.2 -->
   <span class="task-no">Assignment 1.2</span>
   <h2>Which Districts Are Different?</h2>
   <p>Over-representation ratio: P(crime | district) / P(crime). Values above 1 mean the crime is more common there than city-wide.</p>
- 
-  <div class="cell">
-    <div class="cell-header">
-      <span class="cell-label">Python · assignment1_figures.py</span>
-      <button class="run-btn" onclick="runCell('out2')">▶ Run</button>
-    </div>
-    <pre><span class="cm"># Compute ratios</span>
-counts[<span class="st">"ratio"</span>] = (counts[<span class="st">"n"</span>] / counts[<span class="st">"dn"</span>]) / (counts[<span class="st">"cn"</span>] / len(df_d))
-pivot = counts.pivot(index=<span class="st">"district"</span>, columns=<span class="st">"category"</span>, values=<span class="st">"ratio"</span>)
- 
-fig = go.Figure(go.Heatmap(
-    z=pivot.values, x=pivot.columns, y=pivot.index,
-    colorscale=<span class="st">"RdBu_r"</span>, zmid=<span class="nu">1.0</span>,
-    texttemplate=<span class="st">"%{text}"</span>
-))
-fig.write_html(<span class="st">"docs/assignment1/fig2_districts.html"</span>)</pre>
-    <div class="cell-output" id="out2">
-      <iframe src="fig2_districts.html" height="550"></iframe>
-      <figcaption>
-        <strong>Figure 2.</strong> Over-representation ratios per police district.
-        Red = more common than city average. Hover for exact values.
-        Source: SFPD Incident Reports, SF OpenData.
-      </figcaption>
-    </div>
-  </div>
- 
+
+  <figure class="fig-block">
+    <iframe src="fig2_districts.html" height="550"
+            title="Crime over-representation per district"></iframe>
+    <figcaption>
+      <strong>Figure 2.</strong> Over-representation ratios per police district.
+      Red = more common than city average. Hover for exact values.
+      Source: SFPD Incident Reports, SF OpenData.
+    </figcaption>
+  </figure>
+
   <blockquote>
     The Tenderloin doesn't just have more drug offenses — it has a ratio that
     dwarfs every other district. That's not only a crime pattern. It's a policing pattern.
   </blockquote>
- 
+
   <div class="reflection">
-    <strong>Tenderloin</strong> shows massive over-representation of Drug Offense incidents. This reflects both genuine concentration (open-air drug markets) and enforcement concentration, heavier patrol presence generates more recorded incidents than in residential districts like Richmond or Taraval.
+    <strong>Tenderloin</strong> shows massive over-representation of Drug Offense incidents. This reflects both genuine concentration (open-air drug markets) and enforcement concentration — heavier patrol presence generates more recorded incidents than in residential districts like Richmond or Taraval.
   </div>
- 
-  <!-- ══════════════════════════════════════════════════ 1.3 -->
+
+  <!-- 1.3 -->
   <span class="task-no">Assignment 1.3</span>
   <h2>How Is Crime Distributed Across the Day?</h2>
-  <p>Violin plots show the full time-of-day distribution, not just the median, but the shape and density of when incidents cluster.</p>
- 
-  <div class="cell">
-    <div class="cell-header">
-      <span class="cell-label">Python · assignment1_figures.py</span>
-      <button class="run-btn" onclick="runCell('out3')">▶ Run</button>
-    </div>
-    <pre><span class="cm"># Violin plots per crime category</span>
-fig = go.Figure()
-<span class="kw">for</span> crime <span class="kw">in</span> FOCUS:
-    sub = df_v[df_v[<span class="st">"category"</span>] == crime][<span class="st">"hour"</span>].values
-    fig.add_trace(go.Violin(
-        y=sub, name=crime.title(),
-        box_visible=<span class="kw">True</span>,
-        meanline_visible=<span class="kw">True</span>,
-    ))
-fig.write_html(<span class="st">"docs/assignment1/fig3_distributions.html"</span>)</pre>
-    <div class="cell-output" id="out3">
-      <iframe src="fig3_distributions.html" height="510"></iframe>
-      <figcaption>
-        <strong>Figure 3.</strong> Time-of-day distribution per crime category.
-        Box shows median and quartiles; violin width shows density.
-        Source: SFPD Incident Reports, SF OpenData.
-      </figcaption>
-    </div>
-  </div>
- 
+  <p>Violin plots show the full time-of-day distribution — not just the median, but the shape and density of when incidents cluster.</p>
+
+  <figure class="fig-block">
+    <iframe src="fig3_distributions.html" height="510"
+            title="Violin plots time-of-day per category"></iframe>
+    <figcaption>
+      <strong>Figure 3.</strong> Time-of-day distribution per crime category.
+      Box shows median and quartiles; violin width shows density.
+      Source: SFPD Incident Reports, SF OpenData.
+    </figcaption>
+  </figure>
+
   <div class="reflection">
     <strong>Drug Offense</strong> clusters mid-afternoon, consistent with daytime enforcement in the Tenderloin.<br><br>
     <strong>Assault and Robbery</strong> extend into late-night hours, driven by nightlife activity.<br><br>
-    <strong>Midnight wrap-around:</strong> Crimes peaking near midnight appear split at 0/23, numerically opposite but temporally adjacent.
+    <strong>Midnight wrap-around:</strong> Crimes peaking near midnight appear split at 0/23 — numerically opposite but temporally adjacent.
   </div>
- 
-  <!-- ══════════════════════════════════════════════════ 1.4 -->
+
+  <!-- 1.4 -->
   <span class="task-no">Assignment 1.4</span>
   <h2>Is Crime Everywhere, or Just Somewhere?</h2>
   <p>Ranking all locations by incident count and plotting on log-log axes reveals whether distribution follows a power law.</p>
- 
-  <div class="cell">
-    <div class="cell-header">
-      <span class="cell-label">Python · assignment1_figures.py</span>
-      <button class="run-btn" onclick="runCell('out4')">▶ Run</button>
-    </div>
-    <pre><span class="cm"># Count incidents per lat/lon, rank, log-log plot</span>
-loc_n  = df_geo.groupby([<span class="st">"latitude"</span>, <span class="st">"longitude"</span>]).size()
-             .sort_values(ascending=<span class="kw">False</span>).values
-ranks  = np.arange(<span class="nu">1</span>, len(loc_n) + <span class="nu">1</span>)
-coef   = np.polyfit(np.log10(ranks), np.log10(loc_n + <span class="nu">1</span>), <span class="nu">1</span>)
- 
-fig = go.Figure()
-fig.add_trace(go.Scatter(x=ranks, y=loc_n, mode=<span class="st">"markers"</span>))
-fig.add_trace(go.Scatter(x=ranks, y=<span class="nu">10</span>**np.polyval(coef, np.log10(ranks)),
-                         mode=<span class="st">"lines"</span>, name=<span class="st">f"fit α={-coef[0]:.2f}"</span>))
-fig.update_layout(xaxis_type=<span class="st">"log"</span>, yaxis_type=<span class="st">"log"</span>)
-fig.write_html(<span class="st">"docs/assignment1/fig4_powerlaw.html"</span>)</pre>
-    <div class="cell-output" id="out4">
-      <iframe src="fig4_powerlaw.html" height="460"></iframe>
-      <figcaption>
-        <strong>Figure 4.</strong> Log-log plot of incident counts per location, ranked highest to lowest.
-        Red line = power-law fit. Source: SFPD Incident Reports, SF OpenData.
-      </figcaption>
-    </div>
-  </div>
- 
+
+  <figure class="fig-block">
+    <iframe src="fig4_powerlaw.html" height="460"
+            title="Log-log power law plot"></iframe>
+    <figcaption>
+      <strong>Figure 4.</strong> Log-log plot of incident counts per location, ranked highest to lowest.
+      Red line = power-law fit. Source: SFPD Incident Reports, SF OpenData.
+    </figcaption>
+  </figure>
+
   <div class="reflection">
     <strong>Power law confirmed:</strong> The near-straight line on log-log axes shows that roughly the top 5% of locations account for the majority of all incidents.<br><br>
     <strong>Implication:</strong> The "average block" is a misleading statistic. Neighbourhood-level aggregation obscures extreme local concentration.
   </div>
- 
-  <!-- ══════════════════════════════════════════════════ 1.5 -->
+
+  <!-- 1.5 -->
   <span class="task-no">Assignment 1.5</span>
   <h2>Which Crimes Share a Weekly Rhythm?</h2>
   <p>For each crime we build a 168-value vector of hourly counts across the full week, then compare all pairs with closed-form linear regression.</p>
- 
-  <div class="cell">
-    <div class="cell-header">
-      <span class="cell-label">Python · assignment1_figures.py</span>
-      <button class="run-btn" onclick="runCell('out5')">▶ Run</button>
-    </div>
-    <pre><span class="cm"># Closed-form regression (no library)</span>
-<span class="kw">for</span> i, c1 <span class="kw">in</span> enumerate(crimes4):
-    <span class="kw">for</span> j, c2 <span class="kw">in</span> enumerate(crimes4):
-        x, y  = profiles[c2], profiles[c1]
-        b1 = np.sum((x-x.mean())*(y-y.mean())) / np.sum((x-x.mean())**<span class="nu">2</span>)
-        b0 = y.mean() - b1 * x.mean()
-        r2 = np.corrcoef(x, y)[<span class="nu">0</span>,<span class="nu">1</span>]**<span class="nu">2</span>
-        <span class="cm"># add scatter + regression line to subplot</span>
-fig.write_html(<span class="st">"docs/assignment1/fig5_regression.html"</span>)</pre>
-    <div class="cell-output" id="out5">
-      <iframe src="fig5_regression.html" height="660"></iframe>
-      <figcaption>
-        <strong>Figure 5.</strong> Pairwise scatterplot matrix of 168-hour weekly profiles.
-        Each point = one hour of the week. Red line = regression fit; R² shown per panel.
-        Source: SFPD Incident Reports, SF OpenData.
-      </figcaption>
-    </div>
-  </div>
- 
+
+  <figure class="fig-block">
+    <iframe src="fig5_regression.html" height="660"
+            title="Scatterplot matrix of weekly crime rhythms"></iframe>
+    <figcaption>
+      <strong>Figure 5.</strong> Pairwise scatterplot matrix of 168-hour weekly profiles.
+      Each point = one hour of the week. Red line = regression fit; R² shown per panel.
+      Source: SFPD Incident Reports, SF OpenData.
+    </figcaption>
+  </figure>
+
   <div class="reflection">
-    <strong>Most correlated is Assault & Robbery:</strong> Both peak on weekend evenings via the same nightlife dynamics.<br><br>
-    <strong>Least correlated is Burglary & Robbery:</strong> Burglary favours quiet daytime weekdays; Robbery peaks at night on weekends, nearly opposite opportunity structures.
+    <strong>Most correlated — Assault & Robbery:</strong> Both peak on weekend evenings via the same nightlife dynamics.<br><br>
+    <strong>Least correlated — Burglary & Robbery:</strong> Burglary favours quiet daytime weekdays; Robbery peaks at night on weekends — nearly opposite opportunity structures.
   </div>
- 
+
   <div class="callout">
     ⚠️ <strong>Data caveat:</strong> All figures are based on <em>reported</em> incidents from a 100,000-row sample per API endpoint. Under-reporting, patrol concentration, and API data quality all influence the patterns shown.
   </div>
- 
+
   <p class="data-note">
     <strong>Data:</strong> SFPD Incident Reports, SF OpenData
     (<code>wg3w-h783</code> modern · <code>tmnf-yvry</code> historical).
     Visualizations: Python (pandas, numpy, plotly).
     Course: 02806 Social Data Analysis and Visualization, DTU, Spring 2026.
   </p>
- 
+
 </main>
- 
-<script>
-  function runCell(outputId) {
-    const output = document.getElementById(outputId);
-    const btn = output.previousElementSibling.querySelector('.run-btn') ||
-                output.parentElement.querySelector('.run-btn');
- 
-    output.classList.add('visible');
- 
-    // Scroll smoothly to output
-    output.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-  }
-</script>
- 
 </body>
 </html>
