@@ -133,17 +133,11 @@
       border-radius: 50%;
       flex-shrink: 0;
     }
-    .clip-block .ratio {
-      position: relative;
-      padding-bottom: 56.25%;
-      height: 0;
-    }
-    .clip-block .ratio iframe {
-      position: absolute;
-      inset: 0;
+    .clip-block video {
+      display: block;
       width: 100%;
-      height: 100%;
-      border: none;
+      aspect-ratio: 16 / 9;
+      background: #000;
     }
     .clip-block figcaption {
       padding: 0.65rem 1rem 0.8rem;
@@ -164,6 +158,7 @@
     }
     .fig-block img    { display: block; width: 100%; height: auto; }
     .fig-block iframe { display: block; width: 100%; border: none; }
+    /* JS clip controller — stops video at end timestamp */
     figcaption {
       padding: 0.75rem 1rem 0.9rem;
       font-size: 0.82rem;
@@ -349,12 +344,10 @@
       <span class="dot"></span>
       Channel 5 — Baltimore Streets &nbsp;·&nbsp; <span class="ts">00:01:03</span>
     </div>
-    <div class="ratio">
-      <iframe src="https://www.youtube.com/embed/XQs59YY-e2I?start=63&end=120"
-              title="Mayor Scott on the 2023 turning point"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen></iframe>
-    </div>
+    <video src="baltimore_streets.mp4"
+           data-start="63" data-end="120"
+           controls preload="none"
+           poster="baltimore_streets_header.jpg"></video>
     <figcaption>
       <em>"For the majority of my life, Baltimore has had over 300 homicides in a year.
       2023 is when things changed. Murder rate, I've never seen it drop that low.
@@ -419,12 +412,10 @@
       <span class="dot"></span>
       Channel 5 — Baltimore Streets &nbsp;·&nbsp; <span class="ts">00:23:54</span>
     </div>
-    <div class="ratio">
-      <iframe src="https://www.youtube.com/embed/XQs59YY-e2I?start=1434&end=1510"
-              title="Mayor Scott on the Scott Doctrine — arrests vs. homicides"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen></iframe>
-    </div>
+    <video src="baltimore_streets.mp4"
+           data-start="1434" data-end="1510"
+           controls preload="none"
+           poster="baltimore_streets_header.jpg"></video>
     <figcaption>
       <em>"In 2004, the city of Baltimore had 278 homicides and made 91,000 arrests.
       Last year, we had 201 homicides and made 15,000 arrests. It has never been
@@ -478,12 +469,10 @@
       <span class="dot"></span>
       Channel 5 — Baltimore Streets &nbsp;·&nbsp; <span class="ts">00:24:55</span>
     </div>
-    <div class="ratio">
-      <iframe src="https://www.youtube.com/embed/XQs59YY-e2I?start=1495&end=1565"
-              title="Mayor Scott on Safe Streets zones going 365 days without a homicide"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen></iframe>
-    </div>
+    <video src="baltimore_streets.mp4"
+           data-start="1495" data-end="1565"
+           controls preload="none"
+           poster="baltimore_streets_header.jpg"></video>
     <figcaption>
       <em>"We got at least four zones last year that went 365 days without a homicide.
       We made it 319 days down here. It should just be more zones."</em>
@@ -543,12 +532,10 @@
       <span class="dot"></span>
       Channel 5 — Baltimore Streets &nbsp;·&nbsp; <span class="ts">00:20:35</span>
     </div>
-    <div class="ratio">
-      <iframe src="https://www.youtube.com/embed/XQs59YY-e2I?start=1235&end=1320"
-              title="Mayor Scott on gun violence — interpersonal conflict not gang warfare"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen></iframe>
-    </div>
+    <video src="baltimore_streets.mp4"
+           data-start="1235" data-end="1320"
+           controls preload="none"
+           poster="baltimore_streets_header.jpg"></video>
     <figcaption>
       <em>"Only 11% of homicides nationally are connected to gangs. The majority
       are basic human conflict. And what our Safe Streets violence interrupters do
@@ -625,12 +612,10 @@
       <span class="dot"></span>
       Channel 5 — Baltimore Streets &nbsp;·&nbsp; <span class="ts">00:27:15</span>
     </div>
-    <div class="ratio">
-      <iframe src="https://www.youtube.com/embed/XQs59YY-e2I?start=1635&end=1690"
-              title="Mayor Scott on Baltimore as a city on the rise"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen></iframe>
-    </div>
+    <video src="baltimore_streets.mp4"
+           data-start="1635" data-end="1690"
+           controls preload="none"
+           poster="baltimore_streets_header.jpg"></video>
     <figcaption>
       <em>"People now see Baltimore as a place they should invest in. A city
       that is on the come up — a city that is going through a renaissance."</em>
@@ -710,5 +695,35 @@
   </p>
 
 </main>
+
+<script>
+  // For each <video data-start data-end>, seek to start on play
+  // and pause automatically when end timestamp is reached.
+  document.querySelectorAll("video[data-start]").forEach(vid => {
+    const start = parseFloat(vid.dataset.start);
+    const end   = parseFloat(vid.dataset.end);
+
+    // Seek to clip start when user hits play (fires before playback begins)
+    vid.addEventListener("play", () => {
+      if (vid.currentTime < start || vid.currentTime >= end) {
+        vid.currentTime = start;
+      }
+    });
+
+    // Also seek immediately on load so the scrubber shows the right position
+    vid.addEventListener("loadedmetadata", () => {
+      vid.currentTime = start;
+    });
+
+    // Stop at end timestamp
+    vid.addEventListener("timeupdate", () => {
+      if (vid.currentTime >= end) {
+        vid.pause();
+        vid.currentTime = start; // reset so replaying starts from clip start
+      }
+    });
+  });
+</script>
+
 </body>
 </html>
