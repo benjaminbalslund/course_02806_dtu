@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Baltimore's Renaissance — Channel 5 × Data</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink:    #1A1A1A;
+      --soft:   #4A4A4A;
+      --rule:   #DDDDDD;
+      --accent: #E63946;
+      --bg:     #FAFAF8;
+      --card:   #FFFFFF;
+      --max-w:  720px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'Source Serif 4', Georgia, serif;
+      font-size: 18px;
+      line-height: 1.78;
+    }
+
+    /* ── HERO ──────────────────────────────────────────────── */
+    .hero-wrap {
+      width: 100%;
+      overflow: hidden;
+      max-height: 500px;
+      border-bottom: 4px solid var(--ink);
+    }
+    .hero-wrap img {
+      display: block;
+      width: 100%;
+      height: 500px;
+      object-fit: cover;
+      object-position: center 20%;
+    }
+
+    /* ── HEADER ────────────────────────────────────────────── */
+    header {
+      border-bottom: 1px solid var(--rule);
+      padding: 2.8rem 1.5rem 2.4rem;
+      text-align: center;
+    }
+    .kicker {
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3.1rem);
+      line-height: 1.18;
+      max-width: 660px;
+      margin: 0 auto 1.2rem;
+    }
+    .deck {
+      font-size: 1.05rem;
+      color: var(--soft);
+      max-width: 560px;
+      margin: 0 auto 1.5rem;
+      font-style: italic;
+    }
+    .byline {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      color: #999;
+      letter-spacing: 0.05em;
+    }
+
+    /* ── STORY BODY ────────────────────────────────────────── */
+    .story {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 1.5rem 4rem;
+    }
+    p { margin: 1.4rem 0; }
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      margin: 3.5rem 0 0.5rem;
+      border-top: 1px solid var(--rule);
+      padding-top: 1.5rem;
+    }
+
+    /* ── TIMESTAMP BADGE ───────────────────────────────────── */
+    .ts {
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      background: var(--ink);
+      color: #fff;
+      padding: 0.12em 0.5em;
+      border-radius: 2px;
+      letter-spacing: 0.04em;
+      vertical-align: middle;
+      margin: 0 0.15em;
+    }
+
+    /* ── VIDEO CLIP BLOCK ──────────────────────────────────── */
+    /*  The "claim from the street" card that sits above the data */
+    .clip-block {
+      margin: 2.2rem 0 0;
+      border: 1px solid var(--rule);
+      border-radius: 4px;
+      overflow: hidden;
+      background: var(--card);
+    }
+    .clip-block .clip-label {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.55rem 1rem;
+      background: var(--ink);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      color: #fff;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .clip-block .clip-label .dot {
+      width: 8px; height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .clip-block .ratio {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+    }
+    .clip-block .ratio iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    .clip-block figcaption {
+      padding: 0.65rem 1rem 0.8rem;
+      font-size: 0.8rem;
+      color: var(--soft);
+      border-top: 1px solid var(--rule);
+      line-height: 1.55;
+    }
+    .clip-block figcaption em { color: var(--ink); font-style: italic; }
+
+    /* ── DATA FIGURE ───────────────────────────────────────── */
+    .fig-block {
+      margin: 0.8rem 0 2.5rem;
+      background: var(--card);
+      border: 1px solid var(--rule);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .fig-block img    { display: block; width: 100%; height: auto; }
+    .fig-block iframe { display: block; width: 100%; border: none; }
+    figcaption {
+      padding: 0.75rem 1rem 0.9rem;
+      font-size: 0.82rem;
+      color: var(--soft);
+      border-top: 1px solid var(--rule);
+      line-height: 1.55;
+    }
+    figcaption strong { color: var(--ink); }
+
+    /* ── DATA BRIDGE ───────────────────────────────────────── */
+    /* Small connector label between video and figure */
+    .bridge {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      margin: 0.6rem 0;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--soft);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .bridge::before, .bridge::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: var(--rule);
+    }
+    .bridge span { color: var(--accent); }
+
+    /* ── PULL QUOTE ────────────────────────────────────────── */
+    blockquote {
+      margin: 2.5rem 0;
+      padding: 1.1rem 1.5rem 1.1rem 1.8rem;
+      border-left: 4px solid var(--accent);
+      background: #FFF8F8;
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.18rem;
+      line-height: 1.55;
+      color: #2A1A1A;
+    }
+    blockquote cite {
+      display: block;
+      margin-top: 0.6rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      font-style: normal;
+      color: var(--soft);
+      letter-spacing: 0.05em;
+    }
+
+    /* ── CALLOUT ───────────────────────────────────────────── */
+    .callout {
+      background: #FFF9E6;
+      border-left: 3px solid #E6A817;
+      padding: 0.9rem 1.2rem;
+      margin: 2rem 0;
+      font-size: 0.88rem;
+      line-height: 1.6;
+    }
+
+    /* ── STAT ROW ──────────────────────────────────────────── */
+    .stat-row {
+      display: flex;
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+    .stat-box {
+      flex: 1;
+      background: var(--card);
+      border: 1px solid var(--rule);
+      border-radius: 4px;
+      padding: 1rem;
+      text-align: center;
+    }
+    .stat-box .num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      color: var(--accent);
+      display: block;
+    }
+    .stat-box .label {
+      font-size: 0.78rem;
+      color: var(--soft);
+      line-height: 1.4;
+    }
+
+    /* ── DATA NOTE ─────────────────────────────────────────── */
+    .data-note {
+      margin-top: 3.5rem;
+      padding-top: 1.2rem;
+      border-top: 1px solid var(--rule);
+      font-size: 0.78rem;
+      color: #999;
+      line-height: 1.6;
+    }
+    .data-note a { color: #999; }
+    .data-note a:hover { color: var(--soft); }
+
+    /* ── BACK LINK ─────────────────────────────────────────── */
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--soft);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      margin: 1.5rem 0 0;
+      opacity: 0.7;
+    }
+    .back-link:hover { opacity: 1; }
+
+    @media (max-width: 500px) {
+      body { font-size: 16px; }
+      .stat-row { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── HERO ──────────────────────────────────────────────────────────── -->
+<div class="hero-wrap">
+  <img src="baltimore_streets_header.jpg"
+       alt="84 Social Data Viz — narrated by Channel 5 with Andrew Callaghan, created by Benjamin Balslund" />
+</div>
+
+<!-- ── HEADER ─────────────────────────────────────────────────────────── -->
+<header>
+  <span class="kicker">Baltimore Crime Data · 02806 Social Data Analysis · Spring 2026</span>
+  <h1>Baltimore's Renaissance:<br>How a City Stopped Counting Its Dead</h1>
+  <p class="deck">
+    For most of the 21st century, Baltimore averaged over 300 homicides a year.
+    Then something changed. This is what the streets say — and what the data confirms.
+  </p>
+  <p class="byline">By: Benjamin Balslund (s253848) &nbsp;·&nbsp; May 2026</p>
+</header>
+
+<!-- ── STORY ──────────────────────────────────────────────────────────── -->
+<main class="story">
+
+  <a class="back-link" href="../">← Back</a>
+
+  <p>
+    I first became aware of this story back in 2018 — that was when I watched the
+    Cannes-selected film <em>Charm City</em>. After that I started following the story
+    evolving in the streets of Baltimore, mainly because my mom lived in the US at the
+    time and often traveled in and around the city.
+  </p>
+
+  <p>
+    Skip to now. Around five months ago, Andrew Callaghan and the Channel 5 crew
+    released <em>Baltimore Streets</em> — a short documentary exploring the
+    "Renaissance" in Baltimore, a city long known for extreme violence. It examines
+    how the city achieved a 54% reduction in homicides since 2020 by shifting away
+    from traditional policing toward community-led intervention.
+  </p>
+
+  <p>
+    In this assignment I examine the correlation between community-led violence
+    intervention and the historic decline in Baltimore's homicide rates, using the
+    Channel 5 narrative to contextualize the human impact behind the statistics.
+    The structure is simple: each section opens with a claim from the video,
+    then dives into the data behind it.
+  </p>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <h2>The Turning Point</h2>
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+
+  <p>
+    Mayor Brandon Scott opens the documentary with a single, striking claim:
+    for the majority of his life, Baltimore had over 300 homicides every year.
+    2023 was when that streak broke. The data bears this out — but the story behind
+    the numbers is more complicated than a simple drop.
+  </p>
+
+  <!-- VIDEO: 00:01:03 — Mayor Scott on 2023 turning point -->
+  <figure class="clip-block">
+    <div class="clip-label">
+      <span class="dot"></span>
+      Channel 5 — Baltimore Streets &nbsp;·&nbsp; <span class="ts">00:01:03</span>
+    </div>
+    <div class="ratio">
+      <iframe src="https://www.youtube.com/embed/XQs59YY-e2I?start=63&end=120"
+              title="Mayor Scott on the 2023 turning point"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen></iframe>
+    </div>
+    <figcaption>
+      <em>"For the majority of my life, Baltimore has had over 300 homicides in a year.
+      2023 is when things changed. Murder rate, I've never seen it drop that low.
+      And now we're about to break a record."</em> — Mayor Brandon Scott
+    </figcaption>
+  </figure>
+
+  <div class="bridge"><span>↓ what the data shows</span></div>
+
+  <!-- FIGURE 1 -->
+  <figure class="fig-block">
+    <img src="fig1_homicide_shooting_trend.png"
+         alt="Annual homicides and shootings in Baltimore 2011–2024" />
+    <figcaption>
+      <strong>Figure 1.</strong> Annual homicides and shootings in Baltimore,
+      2011–2024, from the Open Baltimore Part 1 Crime Dataset (644,531 records).
+      The teal dashed line marks Mayor Scott's election in 2020. Both homicides
+      and shootings peak around 2019 and decline sharply — 2024 records the lowest
+      homicide count in the entire dataset.
+      Source: Open Baltimore, Part 1 Crime Data.
+    </figcaption>
+  </figure>
+
+  <p>
+    The drop is not subtle. From a peak of roughly 350 homicides in 2015–2017 —
+    the years immediately following the Freddie Gray unrest — the city worked
+    its way down through the 2020s to figures not seen since the early 2000s.
+    Shootings, which had been climbing since 2013, show an equally dramatic
+    reversal after 2019.
+  </p>
+
+  <div class="stat-row">
+    <div class="stat-box">
+      <span class="num">−54%</span>
+      <span class="label">reduction in homicides since Mayor Scott took office in 2020</span>
+    </div>
+    <div class="stat-box">
+      <span class="num">263</span>
+      <span class="label">homicides in 2023 — first year below 300 in over a decade</span>
+    </div>
+    <div class="stat-box">
+      <span class="num">200</span>
+      <span class="label">homicides in 2024 — lowest figure in the dataset</span>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <h2>The Scott Doctrine: Fewer Arrests, Safer Streets</h2>
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+
+  <p>
+    The instinct in American policing has historically been: more crime means
+    more arrests. Baltimore tried that. At <span class="ts">00:23:54</span>,
+    Mayor Scott delivers the counter-evidence in two numbers that are almost
+    impossible to argue with.
+  </p>
+
+  <!-- VIDEO: 00:23:54 — Scott Doctrine -->
+  <figure class="clip-block">
+    <div class="clip-label">
+      <span class="dot"></span>
+      Channel 5 — Baltimore Streets &nbsp;·&nbsp; <span class="ts">00:23:54</span>
+    </div>
+    <div class="ratio">
+      <iframe src="https://www.youtube.com/embed/XQs59YY-e2I?start=1434&end=1510"
+              title="Mayor Scott on the Scott Doctrine — arrests vs. homicides"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen></iframe>
+    </div>
+    <figcaption>
+      <em>"In 2004, the city of Baltimore had 278 homicides and made 91,000 arrests.
+      Last year, we had 201 homicides and made 15,000 arrests. It has never been
+      about how many people we arrest."</em> — Mayor Brandon Scott
+    </figcaption>
+  </figure>
+
+  <div class="bridge"><span>↓ what the data shows</span></div>
+
+  <!-- FIGURE 2 -->
+  <figure class="fig-block">
+    <img src="fig2_scott_doctrine.png"
+         alt="Dual-axis chart: total arrests declining from 91,000 to 15,000, homicides also declining" />
+    <figcaption>
+      <strong>Figure 2.</strong> Total arrests (bars, left axis) versus annual homicides
+      (line, right axis), 2004–2024. Arrest figures for 2004–2019 are from official
+      Baltimore PD annual reports as cited in the documentary; 2020–2024 are from the
+      Open Baltimore dataset. The two series both decline — undermining the assumption
+      that fewer arrests means more violence.
+      Source: Open Baltimore; Baltimore PD Annual Reports (via documentary).
+    </figcaption>
+  </figure>
+
+  <blockquote>
+    "It has never been about how many people we arrest. It's about making the city safer."
+    <cite>— Mayor Brandon Scott &nbsp;<span class="ts">00:23:54</span></cite>
+  </blockquote>
+
+  <p>
+    What replaced mass arrests is a network of formerly incarcerated credible
+    messengers — the Safe Streets program — who operate 24/7 tip hotlines and
+    intervene directly in escalating conflicts before they turn lethal.
+    They don't carry weapons. They carry credibility.
+  </p>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <h2>Where the Violence Lives — and Where It's Being Interrupted</h2>
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+
+  <p>
+    Safe Streets doesn't operate everywhere. It targets specific neighbourhoods —
+    the ones where the risk is highest. At <span class="ts">00:24:55</span>,
+    the Mayor names two of them and points to something remarkable: these high-risk
+    zones went an entire year without a single homicide.
+  </p>
+
+  <!-- VIDEO: 00:24:55 — Safe Streets zones -->
+  <figure class="clip-block">
+    <div class="clip-label">
+      <span class="dot"></span>
+      Channel 5 — Baltimore Streets &nbsp;·&nbsp; <span class="ts">00:24:55</span>
+    </div>
+    <div class="ratio">
+      <iframe src="https://www.youtube.com/embed/XQs59YY-e2I?start=1495&end=1565"
+              title="Mayor Scott on Safe Streets zones going 365 days without a homicide"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen></iframe>
+    </div>
+    <figcaption>
+      <em>"We got at least four zones last year that went 365 days without a homicide.
+      We made it 319 days down here. It should just be more zones."</em>
+      — Mayor Brandon Scott, referring to Brooklyn and McElderry Park
+    </figcaption>
+  </figure>
+
+  <div class="bridge"><span>↓ what the data shows</span></div>
+
+  <!-- FIGURE 3 -->
+  <figure class="fig-block">
+    <img src="fig3_neighbourhood_hotspots.png"
+         alt="Top 15 Baltimore neighbourhoods by gun violence — Brooklyn and McElderry Park highlighted as Safe Streets zones" />
+    <figcaption>
+      <strong>Figure 3.</strong> Top 15 Baltimore neighbourhoods by combined
+      homicide and shooting incidents, 2011–2024. Teal bars mark the Safe Streets
+      focus zones named in the documentary. Brooklyn ranks #1 overall in gun
+      violence in the dataset — and yet achieved a 365-day homicide-free streak.
+      Source: Open Baltimore, Part 1 Crime Data.
+    </figcaption>
+  </figure>
+
+  <p>
+    Brooklyn topping the list while also being a Safe Streets success story
+    is not a contradiction — it's the point. The program doesn't pick easy wins.
+    It goes where the problem is worst.
+  </p>
+
+  <!-- FIGURE 4 -->
+  <figure class="fig-block">
+    <img src="fig4_safe_streets_zones.png"
+         alt="Annual homicides and shootings in Brooklyn and McElderry Park, 2011–2024" />
+    <figcaption>
+      <strong>Figure 4.</strong> Annual homicides (red) and shootings (amber) in
+      Brooklyn and McElderry Park, 2011–2024. The teal band marks the Mayor Scott
+      era from 2020. Both neighborhoods show a clear downward trajectory after
+      2020, consistent with the expansion of Safe Streets programming.
+      Source: Open Baltimore, Part 1 Crime Data.
+    </figcaption>
+  </figure>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <h2>Not Gang War. Human Conflict.</h2>
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+
+  <p>
+    Decades of crime reporting have framed urban violence as gang warfare —
+    organized, territorial, and solvable through targeted prosecution.
+    At <span class="ts">00:20:35</span>, the documentary challenges that frame
+    with a statistic that redefines the whole problem.
+  </p>
+
+  <!-- VIDEO: 00:20:35 — gang violence vs interpersonal conflict -->
+  <figure class="clip-block">
+    <div class="clip-label">
+      <span class="dot"></span>
+      Channel 5 — Baltimore Streets &nbsp;·&nbsp; <span class="ts">00:20:35</span>
+    </div>
+    <div class="ratio">
+      <iframe src="https://www.youtube.com/embed/XQs59YY-e2I?start=1235&end=1320"
+              title="Mayor Scott on gun violence — interpersonal conflict not gang warfare"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen></iframe>
+    </div>
+    <figcaption>
+      <em>"Only 11% of homicides nationally are connected to gangs. The majority
+      are basic human conflict. And what our Safe Streets violence interrupters do
+      is intercede in that."</em> — Mayor Brandon Scott
+    </figcaption>
+  </figure>
+
+  <div class="bridge"><span>↓ what the data shows</span></div>
+
+  <!-- FIGURE 5 -->
+  <figure class="fig-block">
+    <img src="fig5_weapon_firearm_pct.png"
+         alt="Firearm involvement as share of all reported Baltimore crimes, 2011–2024" />
+    <figcaption>
+      <strong>Figure 5.</strong> Share of all reported crimes in Baltimore involving
+      a firearm or handgun, 2011–2024. The proportion has remained relatively
+      stable — meaning the decline in violence is not explained by fewer guns on
+      the street, but by fewer conflicts escalating to gun use. That gap is where
+      the Safe Streets interrupters operate.
+      Source: Open Baltimore, Part 1 Crime Data.
+    </figcaption>
+  </figure>
+
+  <p>
+    If violence is driven by interpersonal conflict rather than organized crime,
+    then the most effective intervention is someone who can get in the room
+    <em>before</em> the gun comes out — not a police officer arriving afterward.
+    This is what makes the Safe Streets model coherent as policy, not just
+    as community goodwill.
+  </p>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <h2>When Violence Spikes: The Seasonal Pattern</h2>
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+
+  <p>
+    The heatmap below adds a temporal layer to the picture: gun violence in
+    Baltimore is not evenly distributed across the calendar. Summer months —
+    particularly July and August — consistently record the highest counts.
+    This has practical implications for when and where Safe Streets resources
+    should be concentrated.
+  </p>
+
+  <!-- FIGURE 6 — no clip, standalone -->
+  <figure class="fig-block">
+    <img src="fig6_seasonal_heatmap.png"
+         alt="Heatmap of monthly gun violence counts in Baltimore by year, showing consistent summer peaks" />
+    <figcaption>
+      <strong>Figure 6.</strong> Gun violence seasonality (homicide + shooting)
+      by month and year, 2011–2024. Darker cells indicate higher incident counts.
+      Summer peaks are visible in nearly every year; the post-2020 years show a
+      general cooling, but the seasonal pattern persists — suggesting that
+      resource deployment should respond to both geography and time of year.
+      Source: Open Baltimore, Part 1 Crime Data.
+    </figcaption>
+  </figure>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <h2>The Full Picture: Baltimore's Renaissance</h2>
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+
+  <p>
+    Pulling back to the widest view, the chart below overlays total crime
+    volume with gun violence across the full 14-year period. The city is
+    still recording tens of thousands of incidents per year — the renaissance
+    is real, but it is not finished.
+  </p>
+
+  <!-- VIDEO: 00:27:15 — city on the rise -->
+  <figure class="clip-block">
+    <div class="clip-label">
+      <span class="dot"></span>
+      Channel 5 — Baltimore Streets &nbsp;·&nbsp; <span class="ts">00:27:15</span>
+    </div>
+    <div class="ratio">
+      <iframe src="https://www.youtube.com/embed/XQs59YY-e2I?start=1635&end=1690"
+              title="Mayor Scott on Baltimore as a city on the rise"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen></iframe>
+    </div>
+    <figcaption>
+      <em>"People now see Baltimore as a place they should invest in. A city
+      that is on the come up — a city that is going through a renaissance."</em>
+      — Mayor Brandon Scott
+    </figcaption>
+  </figure>
+
+  <div class="bridge"><span>↓ what the data shows</span></div>
+
+  <!-- FIGURE 7 -->
+  <figure class="fig-block">
+    <img src="fig7_renaissance_overview.png"
+         alt="Dual-axis line chart: total crime and gun violence in Baltimore 2011–2024" />
+    <figcaption>
+      <strong>Figure 7.</strong> Total reported crimes (grey, left axis) versus
+      combined homicide and shooting counts (red, right axis), 2011–2024.
+      The teal band marks the Mayor Scott era. Gun violence has declined more
+      sharply than total crime — suggesting that targeted intervention is changing
+      the most lethal outcomes even as broader crime patterns shift more slowly.
+      Source: Open Baltimore, Part 1 Crime Data.
+    </figcaption>
+  </figure>
+
+  <blockquote>
+    "People now see Baltimore as a place they should invest in. A city
+    that is going through a renaissance."
+    <cite>— Mayor Brandon Scott &nbsp;<span class="ts">00:27:15</span></cite>
+  </blockquote>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <h2>What the Data Can and Cannot Tell Us</h2>
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+
+  <p>
+    Crime datasets record reported incidents, not all crime that occurs. Areas
+    with heavier police presence generate more reports for the same underlying
+    rate of activity. Neighbourhoods with deep distrust of police may
+    under-report significantly. The Open Baltimore dataset is no exception.
+  </p>
+
+  <div class="callout">
+    ⚠️ <strong>Data caveat:</strong> These figures reflect <em>reported</em>
+    incidents from the Open Baltimore Part 1 Crime Dataset (644,531 records,
+    2011–2024). Arrest data for pre-2020 years is drawn from official Baltimore
+    PD annual reports as cited in the Channel 5 documentary. The causal link
+    between Safe Streets programming and the homicide decline is consistent with
+    the data's timing and geography, but cannot be proven by observational data
+    alone. Demographic change, economic shifts, and COVID-19 disruption also
+    play a role.
+  </div>
+
+  <p>
+    With those caveats in place: the pattern is consistent, geographically
+    specific, and temporally coherent with the policy interventions described
+    in the documentary. A 54% reduction in homicides in four years, concentrated
+    in the neighbourhoods targeted by the program, is not a statistical artifact.
+    Something real happened in Baltimore.
+  </p>
+
+  <p>
+    Andrew Callaghan went to find it. The data confirms it was there.
+  </p>
+
+  <p class="data-note">
+    <strong>Data:</strong> Open Baltimore Part 1 Crime Data
+    (<a href="https://data.baltimorecity.gov" target="_blank">data.baltimorecity.gov</a>).
+    Analysis: Python (pandas, matplotlib, seaborn). Figures generated from 644,531
+    cleaned records spanning January 2011 – December 2024. Arrest figures for
+    2004–2019 sourced from Baltimore PD Annual Reports as cited in
+    <em>Baltimore Streets</em>, Channel 5 with Andrew Callaghan (2024),
+    <a href="https://www.youtube.com/watch?v=XQs59YY-e2I" target="_blank">youtube.com/watch?v=XQs59YY-e2I</a>.
+    <br><br>
+    Course: 02806 Social Data Analysis and Visualization, DTU, Spring 2026.
+    &nbsp;·&nbsp;
+    <a href="../notes/assignment3.ipynb">→ Explainer Notebook</a>
+  </p>
+
+</main>
+</body>
+</html>
