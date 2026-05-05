@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>San Francisco Crime Analysis</title>
+  <title>02806 Social Data Analysis · Benjamin Balslund</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
   <style>
@@ -82,6 +82,25 @@
     }
     .cta-block p { color: #AAA; margin: 0; font-size: 0.9rem; }
 
+    /* Tag pill shown next to assignment title */
+    .tag {
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: #2A2A2A;
+      color: #888;
+      padding: 0.15em 0.55em;
+      border-radius: 2px;
+      vertical-align: middle;
+      margin-left: 0.5rem;
+    }
+    .tag.new {
+      background: var(--accent);
+      color: #fff;
+    }
+
     .cta-btn {
       display: inline-block;
       background: var(--accent);
@@ -93,6 +112,7 @@
       font-size: 0.8rem;
       letter-spacing: 0.05em;
       white-space: nowrap;
+      flex-shrink: 0;
     }
     .cta-btn.disabled {
       background: #444;
@@ -110,15 +130,15 @@
 
 <header>
   <span class="kicker">02806 Social Data Analysis · DTU · Spring 2026 · Benjamin Balslund (s253848)</span>
-  <h1>San Francisco Crime Analysis</h1>
-  <p class="deck">Current and historical incident reports</p>
+  <h1>Crime, Cities & Data Stories</h1>
+  <p class="deck">Urban crime data explored through analysis, visualization, and narrative.</p>
 </header>
 
 <main class="story">
 
   <div class="cta-block">
     <div>
-      <h2>Assignment 1</h2>
+      <h2>Assignment 1 <span class="tag">San Francisco</span></h2>
       <p>Temporal trends, crime profiles by district, distributions, and spatial power laws.</p>
     </div>
     <a class="cta-btn" href="assignment1/">Go to →</a>
@@ -126,10 +146,18 @@
 
   <div class="cta-block">
     <div>
-      <h2>Assignment 2</h2>
+      <h2>Assignment 2 <span class="tag">San Francisco</span></h2>
       <p>A focused data story on the geographic concentration of crime in San Francisco.</p>
     </div>
     <a class="cta-btn" href="assignment2/">Go to →</a>
+  </div>
+
+  <div class="cta-block">
+    <div>
+      <h2>Assignment 3 <span class="tag new">New · Baltimore</span></h2>
+      <p>Baltimore's Renaissance: How a city reduced homicides by 54% through community-led intervention, narrated by Channel 5 with Andrew Callaghan.</p>
+    </div>
+    <a class="cta-btn" href="assignment3/">Go to →</a>
   </div>
 
 </main>
