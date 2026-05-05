@@ -284,7 +284,7 @@
 
 <!-- ── HERO ──────────────────────────────────────────────────────────── -->
 <div class="hero-wrap">
-  <img src="baltimore_streets_header_1.jpg"
+  <img src="baltimore_streets_header.jpg"
        alt="84 Social Data Viz — narrated by Channel 5 with Andrew Callaghan, created by Benjamin Balslund" />
 </div>
 
@@ -679,6 +679,77 @@
   <p>
     Andrew Callaghan went to find it. The data confirms it was there.
   </p>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <h2>Explore the Data Yourself</h2>
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+
+  <p>
+    The static charts above tell a clear story. But crime data has texture
+    that a single view can't capture — it varies by neighbourhood, by category,
+    and by year. The three interactive visualisations below let you pull on
+    those threads.
+  </p>
+
+  <!-- INTERACTIVE 1: Choropleth map -->
+  <h3 style="font-family:'Playfair Display',serif; font-size:1.15rem; margin: 2.2rem 0 0.4rem; color:var(--ink);">
+    Where crime concentrates — by neighbourhood
+  </h3>
+  <p style="margin-top:0; margin-bottom:0.6rem;">
+    Use the dropdown to switch between crime categories. Hover over any
+    neighbourhood for exact counts. Safe Streets focus zones are visible
+    when you switch to <em>Homicide</em> — notice Brooklyn at the top.
+  </p>
+  <figure class="fig-block">
+    <iframe src="fig_interactive_map.html" height="560"
+            title="Interactive choropleth map of Baltimore crime by neighbourhood"></iframe>
+    <figcaption>
+      <strong>Interactive Figure A.</strong> Crime incidents per neighbourhood,
+      2011–2024. Select a crime category from the dropdown (top left).
+      Neighbourhood boundaries are derived from incident coordinates.
+      Source: Open Baltimore, Part 1 Crime Data.
+    </figcaption>
+  </figure>
+
+  <!-- INTERACTIVE 2: Timeline -->
+  <h3 style="font-family:'Playfair Display',serif; font-size:1.15rem; margin: 2.2rem 0 0.4rem; color:var(--ink);">
+    How crime trends changed over time
+  </h3>
+  <p style="margin-top:0; margin-bottom:0.6rem;">
+    Select a neighbourhood from the dropdown to zoom in. Click crime categories
+    in the legend to show or hide them — double-click to isolate a single line.
+    Use the range slider at the bottom to zoom into specific years.
+  </p>
+  <figure class="fig-block">
+    <iframe src="fig_interactive_timeline.html" height="540"
+            title="Interactive monthly crime timeline with neighbourhood filter"></iframe>
+    <figcaption>
+      <strong>Interactive Figure B.</strong> Monthly crime trends (3-month rolling
+      average) for all Baltimore or individual neighbourhoods. Toggle categories
+      in the legend. Dropdown filters by neighbourhood.
+      Source: Open Baltimore, Part 1 Crime Data.
+    </figcaption>
+  </figure>
+
+  <!-- INTERACTIVE 3: Slider bar chart -->
+  <h3 style="font-family:'Playfair Display',serif; font-size:1.15rem; margin: 2.2rem 0 0.4rem; color:var(--ink);">
+    Which crimes dominated each year
+  </h3>
+  <p style="margin-top:0; margin-bottom:0.6rem;">
+    Drag the year slider or hit Play to animate through 2011–2024.
+    Red bars are gun and violent crimes; grey are property crimes.
+    Watch how the balance shifts as the Safe Streets era takes hold after 2020.
+  </p>
+  <figure class="fig-block">
+    <iframe src="fig_interactive_slider.html" height="530"
+            title="Animated bar chart of top crime categories per year with slider"></iframe>
+    <figcaption>
+      <strong>Interactive Figure C.</strong> Crime category breakdown per year,
+      2011–2024. Drag the slider or press Play. Red = gun/violent crime;
+      grey = property/other. Source: Open Baltimore, Part 1 Crime Data.
+    </figcaption>
+  </figure>
 
   <p class="data-note">
     <strong>Data:</strong> Open Baltimore Part 1 Crime Data
