@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Baltimore's Renaissance: Channel 5 × Data</title>
+  <title>Baltimore's Renaissance — Channel 5 × Data</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
   <style>
@@ -258,9 +258,9 @@
     <div class="clip-label">
       <span class="dot"></span>
       Channel 5 — Baltimore Streets &nbsp;·&nbsp;
-      <span class="ts">00:00:00</span> – <span class="ts">00:02:10</span>
+      <span class="ts">00:00:59</span> – <span class="ts">00:02:10</span>
     </div>
-    <video src="baltimore_streets.mp4#t=0,130"
+    <video src="baltimore_streets.mp4#t=59,130"
            controls preload="metadata"
            poster="baltimore_streets_header.jpg"
            style="width:100%;aspect-ratio:16/9;background:#000;display:block;"></video>
@@ -301,8 +301,47 @@
   </div>
 
   <!-- ═══════════════════════════════════════════════════════ -->
-  <!-- NEXT SECTION GOES HERE                                  -->
+  <h2>Fewer Officers, Fewer Homicides</h2>
   <!-- ═══════════════════════════════════════════════════════ -->
+
+  <p>
+    At <span class="ts">00:04:09</span>, Andrew introduces the Safe Streets program —
+    formerly incarcerated men and women who intervene in conflicts before they turn lethal.
+    They carry no weapons. They carry credibility. The city has fewer police officers
+    than at any point in recent memory — and yet homicides are at a record low.
+  </p>
+
+  <figure class="clip-block">
+    <div class="clip-label">
+      <span class="dot"></span>
+      Channel 5 — Baltimore Streets &nbsp;·&nbsp;
+      <span class="ts">00:04:09</span> – <span class="ts">00:06:04</span>
+    </div>
+    <video src="baltimore_streets.mp4#t=249,364"
+           controls preload="metadata"
+           poster="baltimore_streets_header.jpg"
+           style="width:100%;aspect-ratio:16/9;background:#000;display:block;"></video>
+    <figcaption>
+      <em>"They are out there with their credibility. We never just come to a place
+      where it's like, 'Okay, it's time to call the police.' It's a billion things
+      to try before we have to take that avenue."</em>
+      — Safe Streets Violence Interrupter
+    </figcaption>
+  </figure>
+
+  <div class="bridge"><span>↓ what the data shows</span></div>
+
+  <figure class="fig-block">
+    <div id="chart-fig2" style="width:100%;height:460px;"></div>
+    <figcaption>
+      <strong>Figure 2.</strong> Baltimore police officers (bars, left axis) versus
+      annual homicides (line, right axis), 2014–2024. The officer count has fallen
+      by 29% over the period — yet homicides have also fallen, particularly after 2022.
+      The assumption that fewer officers means more violence is not supported by this data.
+      Source: Homicides — Open Baltimore Part 1 Crime Data.
+      Officers — city-data.com (FBI Uniform Crime Reports).
+    </figcaption>
+  </figure>
 
   <p class="data-note">
     <strong>Data:</strong> Open Baltimore Part 1 Crime Data
@@ -430,10 +469,78 @@ function renderFig1() {
   })), { displayModeBar: false, responsive: true });
 }
 
-// ── INIT ─────────────────────────────────────────────────────────────────────
+// ── FIG 2 — Police Officers vs Homicides 2014–2024 ───────────────────────────
+// Officers: city-data.com (FBI UCR). Homicides: Open Baltimore Part 1 Crime Data.
+function renderFig2() {
+  const years     = [2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024];
+  const officers  = [2779, 2646, 2512, 2516, 2488, 2465, 2465, 2360, 2360, 2047, 1986];
+  const homicides = [211,  342,  317,  339,  307,  348,  332,  344,  336,  263,  199];
+
+  Plotly.newPlot('chart-fig2', [
+    {
+      x: years, y: officers,
+      name: 'Police officers',
+      type: 'bar',
+      marker: { color: C.grey, opacity: 0.7, line: { width: 0 } },
+      hovertemplate: '<b>%{x}</b> — %{y:,} officers<extra></extra>',
+    },
+    {
+      x: years, y: homicides,
+      name: 'Homicides',
+      type: 'scatter', mode: 'lines+markers',
+      line: { color: C.red, width: 3 },
+      marker: { size: 8, color: C.red, line: { color: 'white', width: 1.5 } },
+      yaxis: 'y2',
+      hovertemplate: '<b>%{x}</b> — %{y} homicides<extra></extra>',
+    },
+  ], Object.assign(baseLayout({
+    barmode: 'overlay',
+    xaxis: axStyle({
+      tickmode: 'linear', dtick: 1,
+      title: { text: 'Year', font: { size: 11 } },
+    }),
+    yaxis: axStyle({
+      title: { text: 'Police officers', font: { size: 11, color: C.soft } },
+      tickfont: { family: FONT_MONO, size: 10, color: C.soft },
+      range: [1700, 3100],
+    }),
+    yaxis2: {
+      overlaying: 'y', side: 'right', showgrid: false,
+      title: { text: 'Homicides', font: { size: 11, color: C.red } },
+      tickfont: { family: FONT_MONO, size: 10, color: C.red },
+      linecolor: C.red, zeroline: false,
+      range: [150, 420],
+    },
+    legend: {
+      orientation: 'h', yanchor: 'bottom', y: 1.02,
+      xanchor: 'right', x: 1,
+      font: { family: FONT_MONO, size: 10 },
+      bgcolor: 'rgba(255,255,255,0.9)',
+      bordercolor: C.rule, borderwidth: 1,
+    },
+    shapes: [
+      {
+        type: 'line', xref: 'x', yref: 'paper',
+        x0: 2020, x1: 2020, y0: 0, y1: 1,
+        line: { color: C.teal, width: 2, dash: 'dash' },
+      },
+    ],
+    annotations: [
+      {
+        xref: 'x', yref: 'paper', x: 2020.1, y: 0.97,
+        text: 'Mayor Scott elected →',
+        showarrow: false,
+        font: { size: 9, color: C.teal, family: FONT_MONO },
+        xanchor: 'left',
+      },
+    ],
+    margin: { l: 65, r: 65, t: 40, b: 50 },
+  })), { displayModeBar: false, responsive: true });
+}
 document.addEventListener('DOMContentLoaded', () => {
   renderFig1();
-  // renderFig2() — will be added next
+  renderFig2();
+  // renderFig3() — will be added next
   // renderFig3() — will be added next
   // etc.
 });
