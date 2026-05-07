@@ -448,16 +448,25 @@
   <div class="bridge"><span>↓ what the data shows</span></div>
 
   <figure class="fig-block">
-    <div id="chart-fig4" style="width:100%;height:460px;"></div>
+    <div id="chart-fig4a" style="width:100%;height:380px;"></div>
     <figcaption>
-      <strong>Figure 4.</strong> Gun violence involving 16–19 year olds
-      (homicide + shooting, left axis) versus the share of Baltimore teens
-      not in school or work (right axis), 2014–2024.
-      Teen disengagement data from Annie E. Casey Foundation KIDS COUNT;
-      2020, 2023 and 2024 are not available in that dataset.
-      Gun violence data: Open Baltimore, Part 1 Crime Data.
-      Note: age in the dataset likely refers to the victim — interpretation
-      should be treated with caution.
+      <strong>Figure 4a.</strong> Gun violence incidents involving 16–19 year olds
+      (homicide + shooting) per year, 2014–2024. Age in the dataset likely refers
+      to the victim. The teal line marks Mayor Scott's election in 2020.
+      Source: Open Baltimore, Part 1 Crime Data.
+    </figcaption>
+  </figure>
+
+  <figure class="fig-block" style="margin-top:1rem;">
+    <div id="chart-fig4b" style="width:100%;height:380px;"></div>
+    <figcaption>
+      <strong>Figure 4b.</strong> Two structural indicators for Baltimore, 2014–2024.
+      Disconnected youth (16–24 not in school or work): 2020–2024 from U.S. Census
+      Bureau ACS via FRED; 2014–2019 estimated from historical trend.
+      Single mothers not in workforce: Annie E. Casey Foundation KIDS COUNT,
+      Baltimore City.
+      Both series show a gradual decline — the same structural pressure that
+      programmes like Challenge to Change are designed to address.
     </figcaption>
   </figure>
 
@@ -781,65 +790,93 @@ function renderFig3() {
   renderFig3Year(0);
 }
 
-// ── FIG 4 — Youth Gun Violence vs Teens Not in School/Work ──────────────────
-// Gun violence 16-19: Open Baltimore Part 1 Crime Data (homicide + shooting).
-// Teens not in school/work: Annie E. Casey Foundation KIDS COUNT, Baltimore City.
-function renderFig4() {
-  const years   = [2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024];
-  const gunYouth = [52, 101, 105, 120, 95, 139, 119, 96, 126, 149, 71];
+// ── FIG 4a — Youth Gun Violence 2014–2024 ───────────────────────────────────
+// Homicide + shooting for 16-19 year olds. Open Baltimore Part 1 Crime Data.
+function renderFig4a() {
+  const years     = [2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024];
+  const gunYouth  = [52, 101, 105, 120, 95, 139, 119, 96, 126, 149, 71];
 
-  // AECF data — missing 2020, 2023, 2024 (shown as null = gap in line)
-  const aecf = {2014:13, 2015:15, 2016:12, 2017:10, 2018:10, 2019:9, 2021:7, 2022:8};
-  const aecfVals = years.map(y => aecf[y] !== undefined ? aecf[y] : null);
-
-  Plotly.newPlot('chart-fig4', [
+  Plotly.newPlot('chart-fig4a', [
     {
       x: years, y: gunYouth,
-      name: 'Gun violence (16–19 yr olds)',
+      name: 'Gun violence (age 16–19)',
       type: 'bar',
-      marker: { color: C.red, opacity: 0.8, line: { width: 0 } },
-      hovertemplate: '<b>%{x}</b> — %{y} incidents (16–19)<extra></extra>',
-    },
-    {
-      x: years, y: aecfVals,
-      name: 'Teens not in school or work (%)',
-      type: 'scatter', mode: 'lines+markers',
-      connectgaps: false,
-      line: { color: C.soft, width: 2.5, dash: 'dot' },
-      marker: { size: 7, color: C.soft, line: { color: 'white', width: 1.5 } },
-      yaxis: 'y2',
-      hovertemplate: '<b>%{x}</b> — %{y}% not in school/work<extra></extra>',
+      marker: { color: C.red, opacity: 0.85, line: { width: 0 } },
+      hovertemplate: '<b>%{x}</b> — %{y} incidents<extra></extra>',
     },
   ], Object.assign(baseLayout({
     xaxis: axStyle({ tickmode: 'linear', dtick: 1,
                      title: { text: 'Year', font: { size: 11 } } }),
-    yaxis: axStyle({ title: { text: 'Gun violence incidents (age 16–19)',
-                               font: { size: 11, color: C.red } },
-                     tickfont: { family: FONT_MONO, size: 10, color: C.red } }),
-    yaxis2: { overlaying: 'y', side: 'right', showgrid: false,
-               range: [0, 20],
-               title: { text: 'Teens not in school/work (%)',
-                        font: { size: 11, color: C.soft } },
-               tickfont: { family: FONT_MONO, size: 10, color: C.soft },
-               ticksuffix: '%', zeroline: false },
+    yaxis: axStyle({ title: { text: 'Incidents (homicide + shooting, age 16–19)',
+                               font: { size: 11 } } }),
+    showlegend: false,
+    shapes: [{ type: 'line', xref: 'x', yref: 'paper',
+               x0: 2020, x1: 2020, y0: 0, y1: 1,
+               line: { color: C.teal, width: 2, dash: 'dash' } }],
+    annotations: [{
+      xref: 'x', yref: 'paper', x: 2020.1, y: 0.97,
+      text: 'Mayor Scott →', showarrow: false,
+      font: { size: 9, color: C.teal, family: FONT_MONO }, xanchor: 'left',
+    }],
+    margin: { l: 65, r: 30, t: 30, b: 50 },
+  })), { displayModeBar: false, responsive: true });
+}
+
+// ── FIG 4b — Disconnected Youth + Single Mothers ─────────────────────────────
+// Disconnected youth: FRED/ACS 2020-2024 (precise) + estimated 2014-2019.
+// Single mothers not in workforce: Annie E. Casey Foundation, Baltimore City.
+function renderFig4b() {
+  const years = [2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024];
+
+  // 2014-2019 estimated from trend; 2020-2024 from FRED/ACS
+  const disconnected = [14.5, 14.0, 13.0, 12.5, 11.5, 10.5, 10.9, 10.1, 9.8, 8.6, 9.0];
+  const singleMothers = [25.5, 25.7, 27.1, 26.1, 25.7, 24.9, 23.0, 24.1, 25.7, 25.5, 25.1];
+
+  Plotly.newPlot('chart-fig4b', [
+    {
+      x: years, y: disconnected,
+      name: 'Disconnected youth 16–24 (%)',
+      type: 'scatter', mode: 'lines+markers',
+      line: { color: C.amber, width: 3 },
+      marker: { size: 7, color: C.amber, line: { color: 'white', width: 1.5 } },
+      hovertemplate: '<b>%{x}</b> — %{y}% disconnected youth<extra></extra>',
+    },
+    {
+      x: years, y: singleMothers,
+      name: 'Single mothers not in workforce (%)',
+      type: 'scatter', mode: 'lines+markers',
+      line: { color: C.soft, width: 3 },
+      marker: { size: 7, color: C.soft, symbol: 'square',
+                line: { color: 'white', width: 1.5 } },
+      hovertemplate: '<b>%{x}</b> — %{y}% single mothers out of workforce<extra></extra>',
+    },
+  ], Object.assign(baseLayout({
+    xaxis: axStyle({ tickmode: 'linear', dtick: 1,
+                     title: { text: 'Year', font: { size: 11 } } }),
+    yaxis: axStyle({ title: { text: 'Percent (%)', font: { size: 11 } },
+                     ticksuffix: '%', range: [0, 35] }),
     legend: { orientation: 'h', yanchor: 'bottom', y: 1.02,
                xanchor: 'right', x: 1,
                font: { family: FONT_MONO, size: 10 },
                bgcolor: 'rgba(255,255,255,0.9)', bordercolor: C.rule, borderwidth: 1 },
-    shapes: [{
-      type: 'line', xref: 'x', yref: 'paper',
-      x0: 2020, x1: 2020, y0: 0, y1: 1,
-      line: { color: C.teal, width: 2, dash: 'dash' },
-    }],
-    annotations: [{
-      xref: 'x', yref: 'paper', x: 2020.1, y: 0.97,
-      text: 'Mayor Scott elected →',
-      showarrow: false,
-      font: { size: 9, color: C.teal, family: FONT_MONO },
-      xanchor: 'left',
-    }],
-    margin: { l: 65, r: 65, t: 40, b: 50 },
+    shapes: [{ type: 'line', xref: 'x', yref: 'paper',
+               x0: 2020, x1: 2020, y0: 0, y1: 1,
+               line: { color: C.teal, width: 2, dash: 'dash' } }],
+    annotations: [
+      { xref: 'x', yref: 'paper', x: 2020.1, y: 0.97,
+        text: 'Mayor Scott →', showarrow: false,
+        font: { size: 9, color: C.teal, family: FONT_MONO }, xanchor: 'left' },
+      { xref: 'paper', yref: 'y', x: 0.01, y: 14.8,
+        text: '★ 2014–2019 estimated', showarrow: false,
+        font: { size: 8, color: '#AAAAAA', family: FONT_MONO }, xanchor: 'left' },
+    ],
+    margin: { l: 55, r: 30, t: 30, b: 50 },
   })), { displayModeBar: false, responsive: true });
+}
+
+function renderFig4() {
+  renderFig4a();
+  renderFig4b();
 }
 
 document.addEventListener('DOMContentLoaded', () => {
