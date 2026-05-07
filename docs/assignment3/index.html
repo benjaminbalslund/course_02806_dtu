@@ -402,6 +402,65 @@
     </figcaption>
   </figure>
 
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <h2>The Kids Left Behind</h2>
+  <!-- ═══════════════════════════════════════════════════════ -->
+
+  <p>
+    At <span class="ts">00:09:25</span>, Andrew meets Uncle T — founder of
+    Challenge to Change, a mentorship programme operating out of East Baltimore.
+    The conversation moves quickly to root causes: absent fathers, kids out of
+    school, young people with no economic alternative to the street.
+  </p>
+
+  <figure class="clip-block">
+    <div class="clip-label">
+      <span class="dot"></span>
+      Channel 5 — Baltimore Streets &nbsp;·&nbsp;
+      <span class="ts">00:11:32</span> – <span class="ts">00:14:10</span>
+    </div>
+    <video src="baltimore_streets.mp4#t=692,850"
+           controls preload="metadata"
+           poster="baltimore_streets_header.jpg"
+           style="width:100%;aspect-ratio:16/9;background:#000;display:block;"></video>
+    <figcaption>
+      <em>"According to data, 47.5% of Black youth in America live without a
+      consistent father figure in their life. In 1950, that number was 8.5%."</em>
+      — Andrew Callaghan <span class="ts">00:11:32</span>
+    </figcaption>
+  </figure>
+
+  <div class="stat-row">
+    <div class="stat-box">
+      <span class="num">47.5%</span>
+      <span class="label">of Black youth in America without a consistent father figure (national, 2024)</span>
+    </div>
+    <div class="stat-box">
+      <span class="num">~25%</span>
+      <span class="label">of single mothers in Baltimore not in the workforce, 2014–2024</span>
+    </div>
+    <div class="stat-box">
+      <span class="num">13% → 8%</span>
+      <span class="label">teens 16–19 not in school or work, Baltimore, 2014–2022</span>
+    </div>
+  </div>
+
+  <div class="bridge"><span>↓ what the data shows</span></div>
+
+  <figure class="fig-block">
+    <div id="chart-fig4" style="width:100%;height:460px;"></div>
+    <figcaption>
+      <strong>Figure 4.</strong> Gun violence involving 16–19 year olds
+      (homicide + shooting, left axis) versus the share of Baltimore teens
+      not in school or work (right axis), 2014–2024.
+      Teen disengagement data from Annie E. Casey Foundation KIDS COUNT;
+      2020, 2023 and 2024 are not available in that dataset.
+      Gun violence data: Open Baltimore, Part 1 Crime Data.
+      Note: age in the dataset likely refers to the victim — interpretation
+      should be treated with caution.
+    </figcaption>
+  </figure>
+
   <!-- NEXT SECTION GOES HERE -->
 
   <p class="data-note">
@@ -722,11 +781,73 @@ function renderFig3() {
   renderFig3Year(0);
 }
 
+// ── FIG 4 — Youth Gun Violence vs Teens Not in School/Work ──────────────────
+// Gun violence 16-19: Open Baltimore Part 1 Crime Data (homicide + shooting).
+// Teens not in school/work: Annie E. Casey Foundation KIDS COUNT, Baltimore City.
+function renderFig4() {
+  const years   = [2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024];
+  const gunYouth = [52, 101, 105, 120, 95, 139, 119, 96, 126, 149, 71];
+
+  // AECF data — missing 2020, 2023, 2024 (shown as null = gap in line)
+  const aecf = {2014:13, 2015:15, 2016:12, 2017:10, 2018:10, 2019:9, 2021:7, 2022:8};
+  const aecfVals = years.map(y => aecf[y] !== undefined ? aecf[y] : null);
+
+  Plotly.newPlot('chart-fig4', [
+    {
+      x: years, y: gunYouth,
+      name: 'Gun violence (16–19 yr olds)',
+      type: 'bar',
+      marker: { color: C.red, opacity: 0.8, line: { width: 0 } },
+      hovertemplate: '<b>%{x}</b> — %{y} incidents (16–19)<extra></extra>',
+    },
+    {
+      x: years, y: aecfVals,
+      name: 'Teens not in school or work (%)',
+      type: 'scatter', mode: 'lines+markers',
+      connectgaps: false,
+      line: { color: C.soft, width: 2.5, dash: 'dot' },
+      marker: { size: 7, color: C.soft, line: { color: 'white', width: 1.5 } },
+      yaxis: 'y2',
+      hovertemplate: '<b>%{x}</b> — %{y}% not in school/work<extra></extra>',
+    },
+  ], Object.assign(baseLayout({
+    xaxis: axStyle({ tickmode: 'linear', dtick: 1,
+                     title: { text: 'Year', font: { size: 11 } } }),
+    yaxis: axStyle({ title: { text: 'Gun violence incidents (age 16–19)',
+                               font: { size: 11, color: C.red } },
+                     tickfont: { family: FONT_MONO, size: 10, color: C.red } }),
+    yaxis2: { overlaying: 'y', side: 'right', showgrid: false,
+               range: [0, 20],
+               title: { text: 'Teens not in school/work (%)',
+                        font: { size: 11, color: C.soft } },
+               tickfont: { family: FONT_MONO, size: 10, color: C.soft },
+               ticksuffix: '%', zeroline: false },
+    legend: { orientation: 'h', yanchor: 'bottom', y: 1.02,
+               xanchor: 'right', x: 1,
+               font: { family: FONT_MONO, size: 10 },
+               bgcolor: 'rgba(255,255,255,0.9)', bordercolor: C.rule, borderwidth: 1 },
+    shapes: [{
+      type: 'line', xref: 'x', yref: 'paper',
+      x0: 2020, x1: 2020, y0: 0, y1: 1,
+      line: { color: C.teal, width: 2, dash: 'dash' },
+    }],
+    annotations: [{
+      xref: 'x', yref: 'paper', x: 2020.1, y: 0.97,
+      text: 'Mayor Scott elected →',
+      showarrow: false,
+      font: { size: 9, color: C.teal, family: FONT_MONO },
+      xanchor: 'left',
+    }],
+    margin: { l: 65, r: 65, t: 40, b: 50 },
+  })), { displayModeBar: false, responsive: true });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   renderFig1();
   renderFig2();
   renderFig3();
-  // renderFig4() — will be added next
+  renderFig4();
+  // renderFig5() — will be added next
 });
 </script>
 
