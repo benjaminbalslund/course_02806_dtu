@@ -617,17 +617,39 @@ let fig3ShtReady = false;
 
 function zoneTraces(year, crimeKey) {
   const counts = GUN_DATA[crimeKey][String(year)].counts;
-  return SS_ZONES.map(z => ({
-    type: 'scattermapbox',
-    lat: z.lat, lon: z.lon,
-    mode: 'lines',
-    fill: 'toself',
-    fillcolor: z.color + '38',
-    line: { color: z.color, width: 2.5 },
-    text: '<b>' + z.name + '</b><br>' + (counts[z.key]||0) + ' ' + crimeKey.toLowerCase() + 's',
-    hovertemplate: '%{text}<extra></extra>',
-    showlegend: false,
-  }));
+  const traces = [];
+  SS_ZONES.forEach(z => {
+    // Polygon fill trace — no hover (doesn't work reliably on filled polygons)
+    traces.push({
+      type: 'scattermapbox',
+      lat: z.lat, lon: z.lon,
+      mode: 'lines',
+      fill: 'toself',
+      fillcolor: z.color + '38',
+      line: { color: z.color, width: 2.5 },
+      hoverinfo: 'skip',
+      showlegend: false,
+    });
+    // Centroid marker — invisible but carries the hover tooltip
+    const validLats = z.lat.filter(v => v !== null);
+    const validLons = z.lon.filter(v => v !== null);
+    const cLat = validLats.reduce((a,b) => a+b, 0) / validLats.length;
+    const cLon = validLons.reduce((a,b) => a+b, 0) / validLons.length;
+    const count = counts[z.key] || 0;
+    const label = crimeKey === 'HOMICIDE' ? 'homicide' : 'shooting';
+    traces.push({
+      type: 'scattermapbox',
+      lat: [cLat], lon: [cLon],
+      mode: 'markers',
+      marker: { size: 18, color: z.color, opacity: 0 },
+      text: ['<b>' + z.name + '</b><br>' + count + ' ' + label + (count !== 1 ? 's' : '')],
+      hovertemplate: '%{text}<extra></extra>',
+      hoverlabel: { bgcolor: '#fff', bordercolor: z.color,
+                    font: { family: 'JetBrains Mono, monospace', size: 12, color: '#1A1A1A' } },
+      showlegend: false,
+    });
+  });
+  return traces;
 }
 
 function pinTrace(year, crimeKey) {
