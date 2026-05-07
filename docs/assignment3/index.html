@@ -219,28 +219,28 @@
   <a class="back-link" href="../">← Back</a>
 
   <p>
-    In late 2025, Andrew Callaghan and the Channel 5 crew released
-    <em>Baltimore Streets</em>, a documentary exploring how a city long defined
+    In late 2024, Andrew Callaghan and the Channel 5 crew released
+    <em>Baltimore Streets</em> — a documentary exploring how a city long defined
     by its murder rate began, quietly, to turn things around. Since Mayor Brandon Scott
-    took office in 2020, the claim is, that homicides fallen by 40%. This assignment examines
-    what the data actually shows.
+    took office in 2020, the claim is that homicides have fallen by 40%.
+    This assignment examines what the data actually shows.
   </p>
 
   <p>
-    The structure is simple: each section opens with a moment from the video, 
-    then the data responds. Numbers come from the Open Baltimore Part 1 Crime Dataset, 
-    supplemented where necessary by the U.S. Census Bureau, the Annie E. Casey Foundation, 
-    and FBI Uniform Crime Reports. Where data is estimated or incomplete, we say so.
-
+    The structure is simple: each section opens with a moment from the video,
+    then the data responds. Numbers come from the Open Baltimore Part 1 Crime
+    Dataset, supplemented where necessary by the U.S. Census Bureau, the Annie
+    E. Casey Foundation, and FBI Uniform Crime Reports. Where data is estimated
+    or incomplete, we say so.
   </p>
 
   <div class="callout">
-    <strong>⚠️ Data note.</strong> All figures mainly draw on the Open Baltimore Part 1 Crime Dataset:
+    <strong>⚠️ Data note.</strong> All figures draw on the Open Baltimore Part 1 Crime Dataset:
     499,059 reported incidents, 1 January 2014 – 28 December 2024, 13 crime categories.
-    This captures <em>reported</em> crimes only; neighbourhoods with lower police trust
+    This captures <em>reported</em> crimes only — neighbourhoods with lower police trust
     may under-report. The documentary cites a "54% reduction since 2020"; our dataset
-    shows a <strong>40% reduction</strong> (332 homicides in 2020 → 199 in 2024),
-    as we do not have data prior to 2014. Observational data cannot prove causation.
+    shows a <strong>40% reduction</strong> (332 homicides in 2020 → 199 in 2024). 
+    Observational data cannot prove causation.
   </div>
 
   <!-- ═══════════════════════════════════════════════════════ -->
@@ -264,7 +264,7 @@
     </div>
     <video src="baltimore_streets.mp4#t=59,130"
            controls preload="metadata"
-           poster="baltimore_streets_header.jpg"
+           poster="baltimore_streets_header_1.jpg"
            style="width:100%;aspect-ratio:16/9;background:#000;display:block;"></video>
     <figcaption>
       <em>"For the majority of my life, Baltimore has been a place that has had over
@@ -310,7 +310,13 @@
     At <span class="ts">00:04:09</span>, Andrew introduces the Safe Streets program —
     formerly incarcerated men and women who intervene in conflicts before they turn lethal.
     They carry no weapons. They carry credibility. The city has fewer police officers
-    than at any point in recent memory — and yet homicides are at a record low.
+    than at any point in recent memory — and homicides have fallen to a record low.
+    Whether one caused the other is impossible to say from this data alone. What
+    <a href="https://www.baltimorecity.gov/monse/gun-violence-intervention/safe-streets"
+       target="_blank">the city's own Safe Streets programme</a> does document is that
+    since 2015, violence interrupters have mediated over 1,132 conflicts that could
+    have resulted in gun violence — a figure that at least suggests the mechanism
+    is real, even if the causal link remains observational.
   </p>
 
   <figure class="clip-block">
@@ -321,7 +327,7 @@
     </div>
     <video src="baltimore_streets.mp4#t=249,364"
            controls preload="metadata"
-           poster="baltimore_streets_header.jpg"
+           poster="baltimore_streets_header_1.jpg"
            style="width:100%;aspect-ratio:16/9;background:#000;display:block;"></video>
     <figcaption>
       <em>"They are out there with their credibility. We never just come to a place
@@ -339,7 +345,9 @@
       <strong>Figure 2.</strong> Baltimore police officers (bars, left axis) versus
       annual homicides (line, right axis), 2014–2024. The officer count has fallen
       by 29% over the period — yet homicides have also fallen, particularly after 2022.
-      The assumption that fewer officers means more violence is not supported by this data.
+      Both series decline over the period — a pattern <em>consistent with</em> the
+      claim that community intervention, not officer numbers, is driving the change.
+      But correlation is not causation: many factors changed simultaneously.
       Source: Homicides — Open Baltimore Part 1 Crime Data.
       Officers — city-data.com (FBI Uniform Crime Reports).
     </figcaption>
@@ -350,10 +358,14 @@
   <!-- ═══════════════════════════════════════════════════════ -->
 
   <p>
-    Safe Streets currently operates in 10 Baltimore neighbourhoods — the city's
-    most violence-affected areas. Each panel below shows annual gun violence
-    (homicide + shooting) in one Safe Streets zone. These are not easy wins.
-    They are the hardest neighbourhoods in the city.
+    Safe Streets currently operates in 10 Baltimore neighbourhoods — historically
+    the city's most violence-affected areas. The maps below show where homicides
+    and shootings occurred each year. Zones with a Safe Streets presence are
+    highlighted. Whether the programme caused the decline in these areas is
+    contested — a 2013 peer-reviewed study by Webster et al. (Johns Hopkins)
+    found significant reductions in Cherry Hill and McElderry Park, but mixed
+    results elsewhere. Our own data shows the same neighbourhoods declining,
+    though we cannot rule out city-wide trends as the explanation.
   </p>
 
   <figure class="fig-block">
@@ -411,8 +423,9 @@
   <p>
     At <span class="ts">00:09:25</span>, Andrew meets Uncle T — founder of
     Challenge to Change, a mentorship programme operating out of East Baltimore.
-    The conversation moves quickly to root causes: absent fathers, kids out of
-    school, young people with no economic alternative to the street.
+    The conversation moves to structural conditions: absent fathers, kids out of
+    school, young people with limited economic alternatives. These are correlates
+    of violence, not proven causes — but they are the context in which it happens.
   </p>
 
   <figure class="clip-block">
@@ -423,7 +436,7 @@
     </div>
     <video src="baltimore_streets.mp4#t=692,850"
            controls preload="metadata"
-           poster="baltimore_streets_header.jpg"
+           poster="baltimore_streets_header_1.jpg"
            style="width:100%;aspect-ratio:16/9;background:#000;display:block;"></video>
     <figcaption>
       <em>"According to data, 47.5% of Black youth in America live without a
@@ -468,8 +481,12 @@
       Children in single-mother households: Annie E. Casey Foundation KIDS COUNT,
       Baltimore City. The 2016 figure (~32k) is anomalously low — likely an ACS
       methodology change — and should be treated with caution.
-      Both series decline over the period, but tens of thousands of children
-      still grow up in single-parent households with limited economic support.
+      Both series show a downward trend over the period. A Pearson correlation
+      between disconnected youth (%) and gun violence involving 16–19 year olds
+      yields r = −0.46, p = 0.15 — a negative association in the expected direction,
+      but not statistically significant at N = 11. The relationship is consistent
+      with theory but cannot be confirmed from this data alone. Note also that
+      2014–2019 disconnected youth figures are estimated; precise values begin at 2020.
     </figcaption>
   </figure>
 
