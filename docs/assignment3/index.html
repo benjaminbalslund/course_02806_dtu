@@ -436,12 +436,12 @@
       <span class="label">of Black youth in America without a consistent father figure (national, 2024)</span>
     </div>
     <div class="stat-box">
-      <span class="num">~25%</span>
-      <span class="label">of single mothers in Baltimore not in the workforce, 2014–2024</span>
+      <span class="num">70k → 52k</span>
+      <span class="label">children in single-mother households, Baltimore, 2014–2024</span>
     </div>
     <div class="stat-box">
-      <span class="num">14.5% → 9%</span>
-      <span class="label">teens 16–19 not in school or work, Baltimore, 2014–2024</span>
+      <span class="num">13% → 8%</span>
+      <span class="label">teens 16–19 not in school or work, Baltimore, 2014–2022</span>
     </div>
   </div>
 
@@ -463,10 +463,11 @@
       <strong>Figure 4b.</strong> Two structural indicators for Baltimore, 2014–2024.
       Disconnected youth (16–24 not in school or work): 2020–2024 from U.S. Census
       Bureau ACS via FRED; 2014–2019 estimated from historical trend.
-      Single mothers not in workforce: Annie E. Casey Foundation KIDS COUNT,
-      Baltimore City.
-      Both series show a gradual decline — the same structural pressure that
-      programmes like Challenge to Change are designed to address.
+      Children in single-mother households: Annie E. Casey Foundation KIDS COUNT,
+      Baltimore City. The 2016 figure (~32k) is anomalously low — likely an ACS
+      methodology change — and should be treated with caution.
+      Both series decline over the period, but tens of thousands of children
+      still grow up in single-parent households with limited economic support.
     </figcaption>
   </figure>
 
@@ -483,7 +484,7 @@
   <p>
     That is precisely why programmes like Challenge to Change still matter.
     The data does not show a solved problem. It shows a city that has stopped
-    the bleeding, and local figures like Uncle T who are quietly doing
+    the bleeding — and local figures like Uncle T who are quietly doing
     the work that no policy, no police reform, and no mayor's office can
     fully replace. They are already a long way in. They are not done.
   </p>
@@ -840,15 +841,17 @@ function renderFig4a() {
   })), { displayModeBar: false, responsive: true });
 }
 
-// ── FIG 4b — Disconnected Youth + Single Mothers ─────────────────────────────
+// ── FIG 4b — Disconnected Youth + Single Mother Households ───────────────────
 // Disconnected youth: FRED/ACS 2020-2024 (precise) + estimated 2014-2019.
-// Single mothers not in workforce: Annie E. Casey Foundation, Baltimore City.
+// Single mother households: Annie E. Casey Foundation KIDS COUNT, Baltimore City.
+// Note: 2016 single mother figure (~32k) is anomalously low — likely ACS methodology change.
 function renderFig4b() {
   const years = [2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024];
 
   // 2014-2019 estimated from trend; 2020-2024 from FRED/ACS
-  const disconnected = [14.5, 14.0, 13.0, 12.5, 11.5, 10.5, 10.9, 10.1, 9.8, 8.6, 9.0];
-  const singleMothers = [25.5, 25.7, 27.1, 26.1, 25.7, 24.9, 23.0, 24.1, 25.7, 25.5, 25.1];
+  const disconnected   = [14.5, 14.0, 13.0, 12.5, 11.5, 10.5, 10.9, 10.1, 9.8, 8.6, 9.0];
+  // Children living with single mothers, Baltimore City (thousands)
+  const singleMomHH    = [70.3, 69.5, 32.2, 67.1, 64.7, 63.0, 58.8, 56.3, 53.7, 54.1, 52.2];
 
   Plotly.newPlot('chart-fig4b', [
     {
@@ -858,21 +861,33 @@ function renderFig4b() {
       line: { color: C.amber, width: 3 },
       marker: { size: 7, color: C.amber, line: { color: 'white', width: 1.5 } },
       hovertemplate: '<b>%{x}</b> — %{y}% disconnected youth<extra></extra>',
+      yaxis: 'y',
     },
     {
-      x: years, y: singleMothers,
-      name: 'Single mothers not in workforce (%)',
+      x: years, y: singleMomHH,
+      name: 'Children in single-mother households (thousands)',
       type: 'scatter', mode: 'lines+markers',
       line: { color: C.soft, width: 3 },
       marker: { size: 7, color: C.soft, symbol: 'square',
                 line: { color: 'white', width: 1.5 } },
-      hovertemplate: '<b>%{x}</b> — %{y}% single mothers out of workforce<extra></extra>',
+      hovertemplate: '<b>%{x}</b> — %{y}k children in single-mother households<extra></extra>',
+      yaxis: 'y2',
     },
   ], Object.assign(baseLayout({
     xaxis: axStyle({ tickmode: 'linear', dtick: 1,
                      title: { text: 'Year', font: { size: 11 } } }),
-    yaxis: axStyle({ title: { text: 'Percent (%)', font: { size: 11 } },
-                     ticksuffix: '%', range: [0, 35] }),
+    yaxis: axStyle({
+      title: { text: 'Disconnected youth (%)', font: { size: 11, color: C.amber } },
+      ticksuffix: '%', range: [0, 20],
+      tickfont: { family: FONT_MONO, size: 10, color: C.amber },
+    }),
+    yaxis2: {
+      overlaying: 'y', side: 'right', showgrid: false,
+      title: { text: 'Children in single-mother HH (thousands)', font: { size: 11, color: C.soft } },
+      tickfont: { family: FONT_MONO, size: 10, color: C.soft },
+      range: [0, 90], zeroline: false,
+      ticksuffix: 'k',
+    },
     legend: { orientation: 'h', yanchor: 'bottom', y: 1.02,
                xanchor: 'right', x: 1,
                font: { family: FONT_MONO, size: 10 },
@@ -884,11 +899,14 @@ function renderFig4b() {
       { xref: 'x', yref: 'paper', x: 2020.1, y: 0.97,
         text: 'Mayor Scott →', showarrow: false,
         font: { size: 9, color: C.teal, family: FONT_MONO }, xanchor: 'left' },
-      { xref: 'paper', yref: 'y', x: 0.01, y: 14.8,
+      { xref: 'paper', yref: 'y', x: 0.01, y: 15.2,
         text: '★ 2014–2019 estimated', showarrow: false,
         font: { size: 8, color: '#AAAAAA', family: FONT_MONO }, xanchor: 'left' },
+      { x: 2016, y: 32.2, xref: 'x', yref: 'y2',
+        text: '⚠ ACS anomaly', showarrow: true, arrowhead: 2, ax: 40, ay: -30,
+        font: { size: 8, color: '#AAAAAA', family: FONT_MONO } },
     ],
-    margin: { l: 55, r: 30, t: 30, b: 50 },
+    margin: { l: 60, r: 80, t: 30, b: 50 },
   })), { displayModeBar: false, responsive: true });
 }
 
