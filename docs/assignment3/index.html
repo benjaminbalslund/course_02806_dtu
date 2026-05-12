@@ -271,7 +271,7 @@
     </div>
     <video src="segment_01.mp4"
            controls preload="metadata"
-           poster="baltimore_streets_header.jpg"
+           poster="baltimore_streets_header_1.jpg"
            style="width:100%;aspect-ratio:16/9;background:#000;display:block;"></video>
     <figcaption>
       <em>"For the majority of my life, Baltimore has been a place that has had over
@@ -334,7 +334,7 @@
     </div>
     <video src="segment_03.mp4"
            controls preload="metadata"
-           poster="baltimore_streets_header.jpg"
+           poster="baltimore_streets_header_1.jpg"
            style="width:100%;aspect-ratio:16/9;background:#000;display:block;"></video>
     <figcaption>
       <em>"They are out there with their credibility. We never just come to a place
@@ -476,12 +476,12 @@
     </div>
     <video src="segment_05.mp4"
            controls preload="metadata"
-           poster="baltimore_streets_header.jpg"
+           poster="baltimore_streets_header_1.jpg"
            style="width:100%;aspect-ratio:16/9;background:#000;display:block;"></video>
     <figcaption>
       <em>"According to data, 47.5% of Black youth in America live without a
       consistent father figure in their life. In 1950, that number was 8.5%."</em>
-      - Andrew Callaghan <span class="ts">00:11:32</span>
+     , Andrew Callaghan <span class="ts">00:11:32</span>
     </figcaption>
   </figure>
 
@@ -576,7 +576,7 @@
     </div>
     <video src="segment_07.mp4"
            controls preload="metadata"
-           poster="baltimore_streets_header.jpg"
+           poster="baltimore_streets_header_1.jpg"
            style="width:100%;aspect-ratio:16/9;background:#000;display:block;"></video>
     <figcaption>
       <em>"Rental assistance, eviction prevention, and always substance abuse and
@@ -621,7 +621,7 @@
     </div>
     <video src="segment_09.mp4"
            controls preload="metadata"
-           poster="baltimore_streets_header.jpg"
+           poster="baltimore_streets_header_1.jpg"
            style="width:100%;aspect-ratio:16/9;background:#000;display:block;"></video>
     <figcaption>
       <em>"We sued Polymer80, the nation's largest ghost gun company, and we
@@ -730,7 +730,7 @@
     in black, and they cluster almost entirely in the red and blue groups, where
     violence and assault dominate.
   </p>
-   
+
   <p>
     The algorithm found four groups on its own. 
     Safe Streets zones appear almost exclusively in Clusters 1 and 2, 
@@ -766,7 +766,7 @@
 
   <p>
     The data on this page tells one version of Baltimore's story. Channel 5's
-    documentary tells another. If you want to see the full picture, the video
+    documentary tells their perspective. If you want to see the full version, the video
     is available on YouTube.
   </p>
 
@@ -875,6 +875,7 @@ function renderFig1() {
     xaxis: axStyle({
       tickmode: 'linear', dtick: 1,
       title: { text: 'Year', font: { size: 11 } },
+      range: [2013.5, 2024.5],
     }),
     yaxis: axStyle({
       title: { text: 'Homicides', font: { size: 11 } },
@@ -957,6 +958,7 @@ function renderFig2() {
     xaxis: axStyle({
       tickmode: 'linear', dtick: 1,
       title: { text: 'Year', font: { size: 11 } },
+      range: [2013.5, 2024.5],
     }),
     yaxis: axStyle({
       title: { text: 'Police officers', font: { size: 11, color: C.soft } },
@@ -1441,7 +1443,7 @@ function renderFig7() {
     margin: { l: 55, r: 30, t: 30, b: 50 },
     annotations: [{
       xref: 'paper', yref: 'paper', x: 0.01, y: 0.01,
-      text: 'Position on axes shows crime mix similarity, not absolute values. Black outline = Safe Streets zone.',
+      text: 'Distance = similarity in crime mix. Black outline = Safe Streets zone.',
       showarrow: false,
       font: { size: 9, color: C.soft, family: FONT_MONO },
       xanchor: 'left',
