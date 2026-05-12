@@ -188,9 +188,16 @@
     }
     .data-note a { color: #999; }
 
-    @media (max-width: 500px) {
+    @media (max-width: 768px) {
       body { font-size: 16px; }
       .stat-row { flex-direction: column; }
+      .hero-wrap { max-height: 220px; }
+      .hero-wrap img { height: 220px; object-position: center center; }
+      h1 { font-size: 1.6rem; }
+      .story { padding: 0 1rem 3rem; }
+      div[style*="grid-template-columns:1fr 1fr"] {
+        grid-template-columns: 1fr !important;
+      }
     }
   </style>
 </head>
@@ -264,7 +271,7 @@
     </div>
     <video src="segment_01.mp4"
            controls preload="metadata"
-           poster="baltimore_streets_header.jpg"
+           poster="baltimore_streets_header_1.jpg"
            style="width:100%;aspect-ratio:16/9;background:#000;display:block;"></video>
     <figcaption>
       <em>"For the majority of my life, Baltimore has been a place that has had over
@@ -327,7 +334,7 @@
     </div>
     <video src="segment_03.mp4"
            controls preload="metadata"
-           poster="baltimore_streets_header.jpg"
+           poster="baltimore_streets_header_1.jpg"
            style="width:100%;aspect-ratio:16/9;background:#000;display:block;"></video>
     <figcaption>
       <em>"They are out there with their credibility. We never just come to a place
@@ -469,7 +476,7 @@
     </div>
     <video src="segment_05.mp4"
            controls preload="metadata"
-           poster="baltimore_streets_header.jpg"
+           poster="baltimore_streets_header_1.jpg"
            style="width:100%;aspect-ratio:16/9;background:#000;display:block;"></video>
     <figcaption>
       <em>"According to data, 47.5% of Black youth in America live without a
@@ -569,7 +576,7 @@
     </div>
     <video src="segment_07.mp4"
            controls preload="metadata"
-           poster="baltimore_streets_header.jpg"
+           poster="baltimore_streets_header_1.jpg"
            style="width:100%;aspect-ratio:16/9;background:#000;display:block;"></video>
     <figcaption>
       <em>"Rental assistance, eviction prevention, and always substance abuse and
@@ -614,7 +621,7 @@
     </div>
     <video src="segment_09.mp4"
            controls preload="metadata"
-           poster="baltimore_streets_header.jpg"
+           poster="baltimore_streets_header_1.jpg"
            style="width:100%;aspect-ratio:16/9;background:#000;display:block;"></video>
     <figcaption>
       <em>"We sued Polymer80, the nation's largest ghost gun company, and we
@@ -741,6 +748,14 @@
     before clustering. Dimensionality was reduced to 2D using PCA for
     visualisation only. The clustering itself uses all 13 dimensions.
     Neighbourhoods with fewer than 30 incidents 2020-2024 were excluded (18 total).
+
+    The algorithm found four groups on its own. 
+    Safe Streets zones appear almost exclusively in Clusters 1 and 2, 
+    which are dominated by assault and shooting. 
+    Cluster 0, the largest group with 79 neighbourhoods, has no Safe Streets presence at all. 
+    That is not a gap in the programme. 
+    It is the programme working as intended: targeting interpersonal violence, not property crime. 
+    The city is not placing violence interrupters in neighbourhoods where the main problem is car theft.
   </p>
 
   <!-- ═══════════════════════════════════════════════════════ -->
@@ -748,8 +763,9 @@
   <!-- ═══════════════════════════════════════════════════════ -->
 
   <p>
-    The data on this page tells one version of Baltimore's story. 
-    If you want to see the full video, the video is available on YouTube.
+    The data on this page tells one version of Baltimore's story. Channel 5's
+    documentary tells another. If you want to see the full picture, the video
+    is available on YouTube.
   </p>
 
   <p style="text-align:center;margin:2rem 0;">
