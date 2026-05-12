@@ -406,7 +406,7 @@
       </div>
     </div>
     <div style="display:flex;align-items:center;justify-content:center;gap:1rem;
-                padding:0.75rem 1rem;border-top:1px solid var(--rule);background:var(--card);">
+                padding:0.75rem 1rem;border-top:1px solid var(--rule);background:var(--card);flex-wrap:wrap;">
       <button id="fig3-prev" onclick="fig3Prev()"
         style="font-family:'JetBrains Mono',monospace;font-size:0.75rem;
                padding:0.3em 0.9em;border:1px solid var(--rule);
@@ -418,6 +418,21 @@
         style="font-family:'JetBrains Mono',monospace;font-size:0.75rem;
                padding:0.3em 0.9em;border:1px solid var(--rule);
                background:var(--bg);cursor:pointer;border-radius:2px;">Next →</button>
+      <div style="position:relative;margin-left:1rem;">
+        <input id="fig3-search" type="text" placeholder="Search neighbourhood..."
+          oninput="fig3Search(this.value)"
+          style="font-family:'JetBrains Mono',monospace;font-size:0.75rem;
+                 padding:0.3em 0.9em;border:1px solid var(--rule);border-radius:2px;
+                 background:var(--bg);width:200px;outline:none;"/>
+        <div id="fig3-suggestions"
+          style="display:none;position:absolute;top:100%;left:0;width:100%;
+                 background:var(--card);border:1px solid var(--rule);border-top:none;
+                 border-radius:0 0 2px 2px;z-index:100;max-height:180px;overflow-y:auto;"></div>
+      </div>
+      <button id="fig3-reset" onclick="fig3ResetZoom()"
+        style="display:none;font-family:'JetBrains Mono',monospace;font-size:0.75rem;
+               padding:0.3em 0.9em;border:1px solid var(--teal);color:var(--teal);
+               background:var(--bg);cursor:pointer;border-radius:2px;">Reset zoom</button>
     </div>
     <div id="fig3-counts"
       style="display:flex;flex-wrap:wrap;gap:0.4rem 1.2rem;padding:0.6rem 1rem;
@@ -1042,6 +1057,76 @@ function fig3Next() {
 }
 function fig3Prev() {
   if (fig3Index > 0) { fig3Index--; renderFig3Year(fig3Index); }
+}
+
+// Build flat list of all neighbourhood names from GUN_DATA
+function fig3AllNeighbourhoods() {
+  const names = new Set();
+  // Safe Streets zones
+  SS_ZONES.forEach(z => names.add(z.name));
+  // All neighbourhoods from counts
+  Object.values(GUN_DATA['HOMICIDE']).forEach(yr => {
+    Object.keys(yr.counts).forEach(k => {
+      // Convert key format: SANDTOWN-WINCHESTER -> Sandtown-Winchester
+      const pretty = k.replace(/-/g, '-').split(/[\s\/]/)
+        .map(w => w.charAt(0) + w.slice(1).toLowerCase()).join(' ');
+      names.add(pretty);
+    });
+  });
+  return [...names].sort();
+}
+
+function fig3Search(val) {
+  const box  = document.getElementById('fig3-suggestions');
+  const reset = document.getElementById('fig3-reset');
+  if (!val.trim()) { box.style.display = 'none'; return; }
+  const matches = fig3AllNeighbourhoods()
+    .filter(n => n.toLowerCase().includes(val.toLowerCase()))
+    .slice(0, 8);
+  if (!matches.length) { box.style.display = 'none'; return; }
+  box.innerHTML = matches.map(m =>
+    `<div onclick="fig3SelectNeighbourhood('${m}')"
+      style="padding:0.35em 0.9em;font-family:'JetBrains Mono',monospace;
+             font-size:0.72rem;cursor:pointer;border-bottom:1px solid var(--rule);"
+      onmouseover="this.style.background='#f0f0f0'"
+      onmouseout="this.style.background=''">${m}</div>`
+  ).join('');
+  box.style.display = 'block';
+}
+
+function fig3SelectNeighbourhood(name) {
+  // Find the zone in SS_ZONES
+  const zone = SS_ZONES.find(z => z.name.toLowerCase() === name.toLowerCase());
+  document.getElementById('fig3-suggestions').style.display = 'none';
+  document.getElementById('fig3-search').value = name;
+  document.getElementById('fig3-reset').style.display = '';
+
+  if (zone) {
+    // Compute bounding box centre
+    const lats = zone.lat.filter(v => v !== null);
+    const lons = zone.lon.filter(v => v !== null);
+    const cLat = (Math.min(...lats) + Math.max(...lats)) / 2;
+    const cLon = (Math.min(...lons) + Math.max(...lons)) / 2;
+    // Zoom both maps to this zone
+    ['chart-fig3-hom', 'chart-fig3-sht'].forEach(id => {
+      Plotly.relayout(id, {
+        'mapbox.center': { lat: cLat, lon: cLon },
+        'mapbox.zoom': 13.5,
+      });
+    });
+  }
+}
+
+function fig3ResetZoom() {
+  ['chart-fig3-hom', 'chart-fig3-sht'].forEach(id => {
+    Plotly.relayout(id, {
+      'mapbox.center': { lat: 39.299, lon: -76.614 },
+      'mapbox.zoom': 11,
+    });
+  });
+  document.getElementById('fig3-search').value = '';
+  document.getElementById('fig3-reset').style.display = 'none';
+  document.getElementById('fig3-suggestions').style.display = 'none';
 }
 
 function renderFig3() {
