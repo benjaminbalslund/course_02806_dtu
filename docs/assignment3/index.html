@@ -1120,17 +1120,8 @@ function fig3Prev() {
 // Build flat list of all neighbourhood names from GUN_DATA
 function fig3AllNeighbourhoods() {
   const names = new Set();
-  // Safe Streets zones
+  // Only use Safe Streets zone names - these are the only searchable zones
   SS_ZONES.forEach(z => names.add(z.name));
-  // All neighbourhoods from counts
-  Object.values(GUN_DATA['HOMICIDE']).forEach(yr => {
-    Object.keys(yr.counts).forEach(k => {
-      // Convert key format: SANDTOWN-WINCHESTER -> Sandtown-Winchester
-      const pretty = k.replace(/-/g, '-').split(/[\s\/]/)
-        .map(w => w.charAt(0) + w.slice(1).toLowerCase()).join(' ');
-      names.add(pretty);
-    });
-  });
   return [...names].sort();
 }
 
