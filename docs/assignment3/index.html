@@ -578,6 +578,68 @@
     </figcaption>
   </figure>
 
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <h2>Guns in Context</h2>
+  <!-- ═══════════════════════════════════════════════════════ -->
+
+  <p>
+    At <span class="ts">00:25:01</span>, Mayor Scott explains what the city has
+    done about the supply side of gun violence. Baltimore sued Polymer80, at
+    the time the largest ghost gun company in the country, and ended their
+    business. They also sued Hanover Armory in Anne Arundel County for selling
+    weapons to people who should not have had them. The strategy is not just
+    about intervention after the fact. It is about cutting off the pipeline.
+  </p>
+
+  <figure class="clip-block">
+    <div class="clip-label">
+      <span class="dot"></span>
+      Channel 5, Baltimore Streets &nbsp;·&nbsp;
+      <span class="ts">00:25:01</span> – <span class="ts">00:28:11</span>
+    </div>
+    <video src="baltimore_streets.mp4#t=1501,1691"
+           controls preload="metadata"
+           poster="baltimore_streets_header_1.jpg"
+           style="width:100%;aspect-ratio:16/9;background:#000;display:block;"></video>
+    <figcaption>
+      <em>"We sued Polymer80, the nation's largest ghost gun company, and we
+      ended their business. There is no silver bullet. All of those factors play
+      into what's happening, not just in Baltimore, but across this country."</em>
+      , Mayor Brandon Scott <span class="ts">00:25:01</span>
+    </figcaption>
+  </figure>
+
+  <p>
+    Baltimore's decline in homicides is not happening in isolation. Nationally,
+    gun homicides peaked at 20,958 in 2021 and fell to 15,364 in 2024, a 27%
+    decrease, according to CDC data analysed by Pew Research Center. Baltimore's
+    decline of 40% over the same period outpaces the national trend. The city is
+    not just following a wave. It is ahead of it.
+  </p>
+
+  <p>
+    At the same time, the national picture remains sobering. Around 44,000 people
+    died from gun-related injuries in the US in 2024, with suicides accounting for
+    62% of those deaths and homicides for 35%. The US gun death rate of 13.2 per
+    100,000 people is far below Venezuela (45.8) and El Salvador (40.4), but still
+    among the highest in the developed world. Baltimore's problem has always been
+    part of a much larger national failure on guns.
+  </p>
+
+  <div class="bridge"><span>↓ what the data shows</span></div>
+
+  <figure class="fig-block">
+    <div id="chart-fig6" style="width:100%;height:400px;"></div>
+    <figcaption>
+      <strong>Figure 6.</strong> US gun homicides per year, 2014-2024, versus
+      Baltimore homicides over the same period (right axis). Both series peak
+      around 2020-2021 and decline sharply thereafter. Baltimore's percentage
+      decline outpaces the national trend.
+      Sources: CDC via Pew Research Center (national); Open Baltimore Part 1
+      Crime Data (Baltimore).
+    </figcaption>
+  </figure>
+
   <!-- NEXT SECTION GOES HERE -->
 
   <p class="data-note">
@@ -1052,13 +1114,71 @@ function renderFig5() {
   }, { displayModeBar: false, responsive: true });
 }
 
+// ── FIG 6 — US Gun Homicides vs Baltimore Homicides ─────────────────────────
+// National gun homicides: CDC via Pew Research Center (2026).
+// Baltimore homicides: Open Baltimore Part 1 Crime Data.
+function renderFig6() {
+  const years     = [2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024];
+  const usGunHom  = [11008, 12979, 14415, 14542, 13958, 14414, 19384, 20958, 19651, 17927, 15364];
+  const baltHom   = [211,   342,   317,   339,   307,   348,   332,   344,   336,   263,   199];
+
+  Plotly.newPlot('chart-fig6', [
+    {
+      x: years, y: usGunHom,
+      name: 'US gun homicides (national)',
+      type: 'scatter', mode: 'lines+markers',
+      line: { color: C.soft, width: 3 },
+      marker: { size: 7, color: C.soft, line: { color: 'white', width: 1.5 } },
+      hovertemplate: '<b>%{x}</b> — %{y:,} US gun homicides<extra></extra>',
+      yaxis: 'y',
+    },
+    {
+      x: years, y: baltHom,
+      name: 'Baltimore homicides',
+      type: 'scatter', mode: 'lines+markers',
+      line: { color: C.red, width: 3 },
+      marker: { size: 7, color: C.red, line: { color: 'white', width: 1.5 } },
+      hovertemplate: '<b>%{x}</b> — %{y} Baltimore homicides<extra></extra>',
+      yaxis: 'y2',
+    },
+  ], Object.assign(baseLayout({
+    xaxis: axStyle({ tickmode: 'linear', dtick: 1,
+                     title: { text: 'Year', font: { size: 11 } } }),
+    yaxis: axStyle({
+      title: { text: 'US gun homicides', font: { size: 11, color: C.soft } },
+      tickfont: { family: FONT_MONO, size: 10, color: C.soft },
+      tickformat: ',',
+    }),
+    yaxis2: {
+      overlaying: 'y', side: 'right', showgrid: false,
+      title: { text: 'Baltimore homicides', font: { size: 11, color: C.red } },
+      tickfont: { family: FONT_MONO, size: 10, color: C.red },
+      zeroline: false,
+    },
+    legend: { orientation: 'h', yanchor: 'bottom', y: 1.02,
+               xanchor: 'right', x: 1,
+               font: { family: FONT_MONO, size: 10 },
+               bgcolor: 'rgba(255,255,255,0.9)', bordercolor: C.rule, borderwidth: 1 },
+    shapes: [{ type: 'line', xref: 'x', yref: 'paper',
+               x0: 2020, x1: 2020, y0: 0, y1: 1,
+               line: { color: C.teal, width: 2, dash: 'dash' } }],
+    annotations: [{
+      xref: 'x', yref: 'paper', x: 2020.1, y: 0.97,
+      text: 'Mayor Scott →', showarrow: false,
+      font: { size: 9, color: C.teal, family: FONT_MONO }, xanchor: 'left',
+    }],
+    margin: { l: 70, r: 70, t: 30, b: 50 },
+  })), { displayModeBar: false, responsive: true });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   renderFig1();
   renderFig2();
   renderFig3();
   renderFig4();
   renderFig5();
-  // renderFig6(), will be added next
+  renderFig6();
+  // renderFig7(), will be added next
 });
 </script>
 
