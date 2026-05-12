@@ -1412,15 +1412,15 @@ function renderFig7() {
   });
 
   Plotly.newPlot('chart-fig7', traces, Object.assign(baseLayout({
-    xaxis: axStyle({ title: { text: 'PC1 (crime mix similarity)', font: { size: 11 } }, zeroline: true, zerolinecolor: C.rule }),
-    yaxis: axStyle({ title: { text: 'PC2', font: { size: 11 } }, zeroline: true, zerolinecolor: C.rule }),
+    xaxis: axStyle({ title: false, zeroline: true, zerolinecolor: C.rule, showticklabels: false }),
+    yaxis: axStyle({ title: false, zeroline: true, zerolinecolor: C.rule, showticklabels: false }),
     legend: { orientation: 'h', yanchor: 'bottom', y: 1.02, xanchor: 'right', x: 1,
                font: { family: FONT_MONO, size: 10 },
                bgcolor: 'rgba(255,255,255,0.9)', bordercolor: C.rule, borderwidth: 1 },
     margin: { l: 55, r: 30, t: 30, b: 50 },
     annotations: [{
       xref: 'paper', yref: 'paper', x: 0.01, y: 0.01,
-      text: 'black outline = Safe Streets zone',
+      text: 'Position on axes shows crime mix similarity, not absolute values. Black outline = Safe Streets zone.',
       showarrow: false,
       font: { size: 9, color: C.soft, family: FONT_MONO },
       xanchor: 'left',
