@@ -731,38 +731,22 @@
   <p>
     Machine learning is a way of letting a computer find patterns in data on its
     own, without being told what to look for. Here we used a method called
-    K-Means clustering, it groups similar neighbourhoods together based on their
+    K-Means clustering, which groups similar neighbourhoods together based on their
     crime mix. We fed it 13 crime categories across 272 neighbourhoods (2020-2024)
-    and it found four distinct types. The result: Safe Streets operates almost
-    exclusively in the two most crime-heavy clusters, which confirms the city is
-    targeting its resources where the need is greatest.
+    and it found four distinct types. Each dot below is a neighbourhood. Dots that
+    are close together have a similar crime profile. Safe Streets zones are outlined
+    in black, and they cluster almost entirely in the red and blue groups, where
+    violence and assault dominate.
   </p>
 
   <figure class="fig-block">
-    <div style="display:grid;grid-template-columns:1fr 1fr;min-height:400px;">
-      <div style="border-right:1px solid var(--rule);">
-        <div style="padding:0.5rem 1rem;font-family:'JetBrains Mono',monospace;
-                    font-size:0.72rem;letter-spacing:0.08em;color:var(--soft);
-                    border-bottom:1px solid var(--rule);">
-          CRIME MIX PER CLUSTER
-        </div>
-        <div id="chart-fig7-bar" style="width:100%;height:380px;"></div>
-      </div>
-      <div>
-        <div style="padding:0.5rem 1rem;font-family:'JetBrains Mono',monospace;
-                    font-size:0.72rem;letter-spacing:0.08em;color:var(--soft);
-                    border-bottom:1px solid var(--rule);">
-          NEIGHBOURHOODS ON MAP
-        </div>
-        <div id="chart-fig7-map" style="width:100%;height:380px;"></div>
-      </div>
-    </div>
+    <div id="chart-fig7" style="width:100%;height:480px;"></div>
     <figcaption>
       <strong>Figure 7.</strong> K-Means clustering (k=4) of 272 Baltimore
-      neighbourhoods by crime type mix, 2020-2024. Left: the share of each
-      crime type per cluster. Right: each neighbourhood coloured by cluster type.
-      Black outlines mark Safe Streets zones. The violent crime cluster (red)
-      is where Safe Streets is concentrated. Source: Open Baltimore Part 1 Crime Data.
+      neighbourhoods by crime profile, 2020-2024. Each dot is one neighbourhood,
+      positioned by similarity in crime mix. Dots close together have a similar
+      crime profile. Size reflects total incident volume. Safe Streets zones are
+      highlighted with a black outline. Source: Open Baltimore Part 1 Crime Data.
     </figcaption>
   </figure>
 
